@@ -20,7 +20,7 @@ public interface ISubCommand {
 
     /**
      * 设置命令模块, 在注册时自动调用
-     * 
+     *
      * @param commandHandler 子命令当前所属的命令模块
      */
     void setCommandHandler(CommandHandler commandHandler);

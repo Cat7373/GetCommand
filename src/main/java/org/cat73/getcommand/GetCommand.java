@@ -18,6 +18,6 @@ public class GetCommand extends BukkitPlugin {
         // getcommand.savetofile:
         // getcommand.savetocommandblock:
         // 注册触发器
-        
+
     }
 }

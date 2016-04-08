@@ -13,10 +13,8 @@ public class PlayersStatus implements IModule {
     public static final HashMap<String, Status> status = new HashMap<>();
 
     @Override
-    public void onEnable(JavaPlugin javaPlugin) {
-    }
+    public void onEnable(final JavaPlugin javaPlugin) {}
 
     @Override
-    public void onDisable(JavaPlugin javaPlugin) {
-    }
+    public void onDisable(final JavaPlugin javaPlugin) {}
 }

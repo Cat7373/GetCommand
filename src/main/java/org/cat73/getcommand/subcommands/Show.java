@@ -11,7 +11,7 @@ public class Show implements ISubCommand {
     @Override
     public boolean handle(final CommandSender sender, final String[] args) throws Exception {
         final String playerName = sender.getName();
-        String command = PlayersStatus.commands.get(playerName);
+        final String command = PlayersStatus.commands.get(playerName);
         if (command != null && !command.isEmpty()) {
             sender.sendMessage(PlayersStatus.commands.get(playerName));
         } else {

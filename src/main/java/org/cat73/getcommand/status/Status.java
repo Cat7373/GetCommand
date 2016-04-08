@@ -6,5 +6,5 @@ package org.cat73.getcommand.status;
  * @author Cat73
  */
 public enum Status {
-    None, Wait_Block, Wait_Entity, Finish
+    Wait_Block, Wait_Entity, Wait_CommandBlock, Finish
 }

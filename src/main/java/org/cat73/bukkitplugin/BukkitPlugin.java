@@ -18,7 +18,7 @@ public class BukkitPlugin extends JavaPlugin {
 
     /**
      * 初始化并返回默认的命令模块, 必须在 onEnable 之前调用.
-     * 
+     *
      * @param baseCommand 主命令名
      * @return 命令模块
      */

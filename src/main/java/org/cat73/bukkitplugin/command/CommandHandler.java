@@ -62,7 +62,7 @@ public class CommandHandler implements CommandExecutor, IModule {
 
     /**
      * 构造命令模块的实例
-     * 
+     *
      * @param baseCommand 主命令名
      */
     public CommandHandler(final String baseCommand) {
