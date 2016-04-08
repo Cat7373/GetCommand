@@ -14,9 +14,9 @@ public class ReflectUtil {
     /**
      * 获取一个属性的值
      *
-     * @param class_ 属性的声明 Class
-     * @param object 目标对象, 如果是静态属性, 则忽略此参数
-     * @param fieldName 目标属性名
+     * @param class_ 声明这个属性的 Class
+     * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
+     * @param fieldName 属性名
      * @return 该属性的值
      * @throws Exception
      */
@@ -38,8 +38,8 @@ public class ReflectUtil {
     /**
      * 获取一个属性的值
      *
-     * @param object 目标对象
-     * @param fieldName 目标属性名
+     * @param object 属性所在的对象
+     * @param fieldName 属性名
      * @return 该属性的值
      * @throws Exception
      */
@@ -50,9 +50,9 @@ public class ReflectUtil {
     /**
      * 设置一个属性的值
      *
-     * @param class_ 属性的声明 Class
-     * @param object 目标对象, 如果是静态属性, 则忽略此参数
-     * @param fieldName 目标属性名
+     * @param class_ 声明这个属性的 Class
+     * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
+     * @param fieldName 属性名
      * @param value 目标值
      * @throws Exception
      */
@@ -72,8 +72,8 @@ public class ReflectUtil {
     /**
      * 设置一个属性的值
      *
-     * @param object 目标对象
-     * @param fieldName 目标属性名
+     * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
+     * @param fieldName 属性名
      * @param value 目标值
      * @throws Exception
      */
@@ -85,18 +85,14 @@ public class ReflectUtil {
     /**
      * 调用一个方法
      *
-     * @param class_ 方法的声明 Class
-     * @param object 目标对象, 如果是静态方法, 则忽略此参数
-     * @param methodName 目标方法名
+     * @param class_ 声明这个方法的 Class
+     * @param object 方法所在的对象, 如果是静态方法, 则忽略此参数
+     * @param methodName 方法名
      * @param args 参数列表
      * @return 方法的返回值
      * @throws Exception
      */
     public static Object invokeMethod(final Class<?> class_, final Object object, final String methodName, Object... args) throws Exception {
-        // 过滤参数
-        if (args == null) {
-            args = new Object[0];
-        }
         // 查找方法
         final Class<?>[] parameterTypes = new Class<?>[args.length];
         if (args.length > 0) {
@@ -120,8 +116,8 @@ public class ReflectUtil {
     /**
      * 调用一个方法
      *
-     * @param object 目标对象
-     * @param methodName 目标方法名
+     * @param object 方法所在的对象, 如果是静态方法, 则忽略此参数
+     * @param methodName 方法名
      * @param args 参数列表
      * @return 方法的返回值
      * @throws Exception
@@ -132,18 +128,14 @@ public class ReflectUtil {
 
     // - 构造方法
     /**
-     * 调用一个构造函数
+     * 调用一个构造函数来实例化一个对象
      *
-     * @param class_ 构造函数的声明 Class
+     * @param class_ 要被实例化的 Class
      * @param args 参数列表
      * @return 实例化后的对象
      * @throws Exception
      */
     public static Object invokeConstructor(final Class<?> class_, Object... args) throws Exception {
-        // 过滤参数
-        if (args == null) {
-            args = new Object[0];
-        }
         // 查找构造函数
         final Class<?>[] parameterTypes = new Class<?>[args.length];
         if (args.length > 0) {

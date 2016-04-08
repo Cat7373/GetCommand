@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.bukkitplugin.command.ISubCommand;
 import org.cat73.bukkitplugin.command.SubCommandInfo;
-import org.cat73.bukkitplugin.utils.reflect.BukkitReflectUtil;
+import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
 import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
@@ -49,7 +49,7 @@ public class Item implements ISubCommand {
         // 获取 item 的 NBTTagCompound
         // NBTTagCompound NBTTagCompound = item.handle.save(NBTTagCompound)
         final Object handle = ReflectUtil.getFieldValue(item, "handle");
-        final Class<?> NBTTagCompoundClass = BukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
+        final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
         final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
         ReflectUtil.invokeMethod(handle, "save", NBTTagCompound);
 
