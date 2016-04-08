@@ -21,6 +21,20 @@ public class CommandUtil {
     public static String getGiveCommand(final String playerName, final String itemName, final int count, final int damage, final String NBTString) {
         return String.format("/give %s %s %d %d %s", playerName, itemName, count, damage, NBTString);
     }
+    
+    /**
+     * 将多个参数格式化成一条 summon 指令
+     *
+     * @param entityName 实体名
+     * @param x 位置
+     * @param y 位置
+     * @param z 位置
+     * @param NBTString 附加 NBT 标签
+     * @return 格式化的 give 指令
+     */
+    public static String getSummonCommand(final String entityName, final String x, final String y, final String z, final String NBTString) {
+        return String.format("/summon %s %s %s %s %s", entityName, x, y, z, NBTString);
+    }
 
     /**
      * 将 NBT 标签内的指定列表转为 JSON

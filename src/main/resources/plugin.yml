@@ -19,9 +19,7 @@ permissions:
     default: op
   getcommand.show:
     default: op
-  getcommand.savetofile:
-    default: op
-  getcommand.savetocommandblock:
+  getcommand.save:
     default: op
   getcommand.clear:
     default: op
