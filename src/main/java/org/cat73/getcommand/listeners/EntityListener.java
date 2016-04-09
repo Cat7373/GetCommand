@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
@@ -14,7 +13,7 @@ import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.CommandUtil;
 
 public class EntityListener implements Listener {
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler
     public void onEntityDamageByEntityEvent(final EntityDamageByEntityEvent event) throws Exception {
         final Entity damager = event.getDamager();
         if (damager instanceof Player) {
@@ -34,7 +33,7 @@ public class EntityListener implements Listener {
                 PlayersStatus.commands.put(playerName, command);
                 PlayersStatus.status.put(playerName, Status.Finish);
 
-                player.sendMessage(String.format("%s获取命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
+                player.sendMessage(String.format("%s获取 summon 命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
             }
         }
     }
