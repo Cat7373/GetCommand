@@ -4,8 +4,8 @@ import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.getcommand.listeners.EntityListener;
 import org.cat73.getcommand.subcommands.Clear;
-import org.cat73.getcommand.subcommands.Item;
 import org.cat73.getcommand.subcommands.Entity;
+import org.cat73.getcommand.subcommands.Item;
 import org.cat73.getcommand.subcommands.Show;
 
 public class GetCommand extends BukkitPlugin {
@@ -17,9 +17,9 @@ public class GetCommand extends BukkitPlugin {
         commandHandler.registerCommand(new Show());
         commandHandler.registerCommand(new Clear());
         // getcommand.block:
-        // getcommand save [file | console | defaule: command_block ]
+        // getcommand save [file | console | defaule: command_block]
     }
-    
+
     @Override
     public void onEnable() {
         super.onEnable();

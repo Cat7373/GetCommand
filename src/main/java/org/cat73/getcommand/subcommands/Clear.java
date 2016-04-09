@@ -1,5 +1,6 @@
 package org.cat73.getcommand.subcommands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.bukkitplugin.command.ISubCommand;
@@ -13,8 +14,12 @@ public class Clear implements ISubCommand {
     @Override
     public boolean handle(final CommandSender sender, final String[] args) throws Exception {
         final String playerName = sender.getName();
+
         PlayersStatus.commands.put(playerName, "");
         PlayersStatus.status.put(playerName, Status.Finish);
+
+        sender.sendMessage(String.format("%s成功取消当前操作并清空已获取到的命令", ChatColor.GREEN));
+
         return true;
     }
 

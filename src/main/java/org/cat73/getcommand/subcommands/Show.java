@@ -1,5 +1,6 @@
 package org.cat73.getcommand.subcommands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.bukkitplugin.command.ISubCommand;
@@ -13,9 +14,10 @@ public class Show implements ISubCommand {
         final String playerName = sender.getName();
         final String command = PlayersStatus.commands.get(playerName);
         if (command != null && !command.isEmpty()) {
-            sender.sendMessage(PlayersStatus.commands.get(playerName));
+            sender.sendMessage(String.format("%s%s------- 当前获取到的命令 ----------------", ChatColor.AQUA, ChatColor.BOLD));
+            sender.sendMessage(String.format("%s%s", ChatColor.GREEN, PlayersStatus.commands.get(playerName)));
         } else {
-            sender.sendMessage("当前没有已获取到的命令");
+            sender.sendMessage(String.format("%s当前没有已获取到的命令", ChatColor.RED));
         }
         return true;
     }

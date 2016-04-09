@@ -1,6 +1,7 @@
 package org.cat73.getcommand.subcommands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -41,6 +42,8 @@ public class Item implements ISubCommand {
         // 设置状态
         PlayersStatus.commands.put(playerName, command);
         PlayersStatus.status.put(playerName, Status.Finish);
+
+        sender.sendMessage(String.format("%s获取命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
 
         return true;
     }

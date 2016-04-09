@@ -1,5 +1,6 @@
 package org.cat73.getcommand.subcommands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.bukkitplugin.command.ISubCommand;
@@ -16,7 +17,7 @@ public class Entity implements ISubCommand {
         final String playerName = sender.getName();
         PlayersStatus.status.put(playerName, Status.Wait_Entity);
 
-        sender.sendMessage("请打一下目标生物来获取 summon 命令(不会真的造成伤害)");
+        sender.sendMessage(String.format("%s请打一下目标生物来获取 summon 命令(不会真的造成伤害", ChatColor.GREEN));
 
         return true;
     }

@@ -1,5 +1,6 @@
 package org.cat73.getcommand.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,28 +15,31 @@ import org.cat73.getcommand.utils.CommandUtil;
 
 public class EntityListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) throws Exception {
-        Entity damager = event.getDamager();
+    public void onEntityDamageByEntityEvent(final EntityDamageByEntityEvent event) throws Exception {
+        final Entity damager = event.getDamager();
         if (damager instanceof Player) {
-            Player player = (Player) damager;
-            String playerName = player.getName();
-            if(PlayersStatus.status.get(playerName) == Status.Wait_Entity) {
+            final Player player = (Player) damager;
+            final String playerName = player.getName();
+            if (PlayersStatus.status.get(playerName) == Status.Wait_Entity) {
                 event.setCancelled(true);
-                Entity entity = event.getEntity();
-                
+                final Entity entity = event.getEntity();
+
                 // 准备数据
-                String entityName = entity.getType().getName();
+                @SuppressWarnings("deprecation")
+                final String entityName = entity.getType().getName();
                 final String NBTString = this.getNBTString(entity);
-                String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", NBTString);
-                
+                final String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", NBTString);
+
                 // 设置状态
                 PlayersStatus.commands.put(playerName, command);
                 PlayersStatus.status.put(playerName, Status.Finish);
+
+                player.sendMessage(String.format("%s获取命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
             }
         }
     }
 
-    private String getNBTString(Entity entity) throws Exception {
+    private String getNBTString(final Entity entity) throws Exception {
         // 获取 entity 的 NBTTagCompound
         // NBTTagCompound NBTTagCompound = entity.entity.e(NBTTagCompound)
         final Class<?> craftEntityClass = CraftBukkitReflectUtil.getCraftBukkitClass("entity.CraftEntity");

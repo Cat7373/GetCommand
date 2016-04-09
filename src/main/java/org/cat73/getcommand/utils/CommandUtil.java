@@ -21,7 +21,7 @@ public class CommandUtil {
     public static String getGiveCommand(final String playerName, final String itemName, final int count, final int damage, final String NBTString) {
         return String.format("/give %s %s %d %d %s", playerName, itemName, count, damage, NBTString);
     }
-    
+
     /**
      * 将多个参数格式化成一条 summon 指令
      *

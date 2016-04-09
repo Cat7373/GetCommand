@@ -92,7 +92,7 @@ public class ReflectUtil {
      * @return 方法的返回值
      * @throws Exception
      */
-    public static Object invokeMethod(final Class<?> class_, final Object object, final String methodName, Object... args) throws Exception {
+    public static Object invokeMethod(final Class<?> class_, final Object object, final String methodName, final Object... args) throws Exception {
         // 查找方法
         final Class<?>[] parameterTypes = new Class<?>[args.length];
         if (args.length > 0) {
@@ -135,7 +135,7 @@ public class ReflectUtil {
      * @return 实例化后的对象
      * @throws Exception
      */
-    public static Object invokeConstructor(final Class<?> class_, Object... args) throws Exception {
+    public static Object invokeConstructor(final Class<?> class_, final Object... args) throws Exception {
         // 查找构造函数
         final Class<?>[] parameterTypes = new Class<?>[args.length];
         if (args.length > 0) {
