@@ -14,10 +14,10 @@ public class GetCommand extends BukkitPlugin {
         final CommandHandler commandHandler = this.initCommandHandler("getcommand");
         commandHandler.registerCommand(new Item());
         commandHandler.registerCommand(new Entity());
-        commandHandler.registerCommand(new Show());
+        // Block:
+        commandHandler.registerCommand(new Show()); // TODO Remove
+        // Save [chat | file | console | defaule: command_block]
         commandHandler.registerCommand(new Clear());
-        // getcommand.block:
-        // getcommand save [file | console | defaule: command_block]
     }
 
     @Override

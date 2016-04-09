@@ -26,13 +26,13 @@ public class ReflectUtil {
         // 保存原访问权限
         final boolean accessible = field.isAccessible();
         // 设置允许通过反射访问
-        if(!accessible) {
+        if (!accessible) {
             field.setAccessible(true);
         }
         // 获取值
         final Object result = field.get(object);
         // 恢复原访问权限
-        if(!accessible) {
+        if (!accessible) {
             field.setAccessible(false);
         }
         // 返回结果
@@ -66,13 +66,13 @@ public class ReflectUtil {
         // 保存原访问权限
         final boolean accessible = field.isAccessible();
         // 设置允许通过反射访问
-        if(!accessible) {
+        if (!accessible) {
             field.setAccessible(true);
         }
         // 设置值
         field.set(object, value);
         // 恢复原访问权限
-        if(!accessible) {
+        if (!accessible) {
             field.setAccessible(false);
         }
     }
@@ -112,13 +112,13 @@ public class ReflectUtil {
         // 保存原访问权限
         final boolean accessible = method.isAccessible();
         // 设置允许通过反射访问
-        if(!accessible) {
+        if (!accessible) {
             method.setAccessible(true);
         }
         // 调用方法
         final Object result = method.invoke(object, args);
         // 恢复原访问权限
-        if(!accessible) {
+        if (!accessible) {
             method.setAccessible(false);
         }
         // 返回结果
@@ -159,13 +159,13 @@ public class ReflectUtil {
         // 保存原访问权限
         final boolean accessible = constructor.isAccessible();
         // 设置允许通过反射访问
-        if(!accessible) {
+        if (!accessible) {
             constructor.setAccessible(true);
         }
         // 调用构造函数
         final Object result = constructor.newInstance(args);
         // 恢复原访问权限
-        if(!accessible) {
+        if (!accessible) {
             constructor.setAccessible(false);
         }
         // 返回结果

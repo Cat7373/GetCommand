@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.IModule;
 import org.cat73.bukkitplugin.command.subcommands.Help;
+import org.cat73.bukkitplugin.utils.Log;
 
 /**
  * 命令的执行器
@@ -17,15 +18,41 @@ import org.cat73.bukkitplugin.command.subcommands.Help;
  * @author cat73
  */
 public class CommandHandler implements CommandExecutor, IModule {
+
+    /**
+     * 管理名称与命令表转换的类, 内部会自动将 key 转换为小写, 因此本类是不区分大小写的<br>
+     * 使用时需保证 key 不能为 null
+     *
+     * @author cat73
+     */
+    private class SubCommandHashMap extends HashMap<String, ISubCommand> {
+        private static final long serialVersionUID = 497789192032897236L;
+
+        @Override
+        public ISubCommand put(final String key, final ISubCommand value) {
+            return super.put(key.toLowerCase(), value);
+        }
+
+        @Override
+        public ISubCommand get(final Object key) {
+            return super.get(((String) key).toLowerCase());
+        }
+
+        @Override
+        public boolean containsKey(final Object key) {
+            return super.containsKey(((String) key).toLowerCase());
+        }
+    }
+
     /** 基础命令名 */
     public final String baseCommand;
     // TODO 私有化
     /** 帮助子命令的实例 */
     public final Help help;
     /** 存储的子命令列表 */
-    private final HashMap<String, ISubCommand> commandList = new HashMap<String, ISubCommand>();
+    private final HashMap<String, ISubCommand> commandList = new SubCommandHashMap();
     /** 子命令的简写缓存 */
-    private final HashMap<String, ISubCommand> aliaseCache = new HashMap<String, ISubCommand>();
+    private final HashMap<String, ISubCommand> aliaseCache = new SubCommandHashMap();
 
     /**
      * 获取一个子命令的信息
@@ -82,13 +109,24 @@ public class CommandHandler implements CommandExecutor, IModule {
 
         // 获取子命令的信息
         final SubCommandInfo info = CommandHandler.getCommandInfo(command);
-        final String name = info.name().toLowerCase();
+        final String name = info.name();
 
+        // 检查是否存在命令覆盖的情况
+        if (this.commandList.containsKey(name)) {
+            Log.warn("%s 的命令管理器已存在的子命令 %s 被覆盖，建议检查代码", this.baseCommand, name);
+        }
         // 加入命令列表
         this.commandList.put(name, command);
+
         // 保存所有简写
         for (final String aliase : info.aliases()) {
-            this.aliaseCache.put(aliase.toLowerCase(), command);
+            // 检查是否存在简写覆盖的情况
+            if (this.aliaseCache.containsKey(aliase)) {
+                final SubCommandInfo info2 = CommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
+                Log.warn("%s 的命令管理器的子命令 %s 的简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
+            }
+            // 加入简写列表
+            this.aliaseCache.put(aliase, command);
         }
     }
 
@@ -129,7 +167,7 @@ public class CommandHandler implements CommandExecutor, IModule {
             }
 
             // 获取目标子命令的执行器
-            ISubCommand commandExecer = this.getCommandByNameOrAliase(args[0].toLowerCase());
+            ISubCommand commandExecer = this.getCommandByNameOrAliase(args[0]);
 
             // 获取失败则执行帮助
             if (commandExecer == null) {
