@@ -3,6 +3,7 @@ package org.cat73.getcommand.utils;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.cat73.getcommand.utils.v1_8_R2.V1_8_R2_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_8_R3.V1_8_R3_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SetblockCommandUtil;
@@ -28,15 +29,19 @@ public class GetCommandUtil {
      */
     public static boolean init(final String version) {
         switch (version) {
-            case "v1_9_R1":
-                GetCommandUtil.giveTool = new V1_9_R1_GiveCommandUtil();
+//            case "v1_8_R1":
+            case "v1_8_R2":
+                GetCommandUtil.giveTool = new V1_8_R3_GiveCommandUtil();
+                GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
+                GetCommandUtil.setblockTool = new V1_8_R2_SetblockCommandUtil();
+                return true;
+            case "v1_8_R3":
+                GetCommandUtil.giveTool = new V1_8_R3_GiveCommandUtil();
                 GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
                 GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
                 return true;
-//            case "v1_8_R1":
-//            case "v1_8_R2":
-            case "v1_8_R3":
-                GetCommandUtil.giveTool = new V1_8_R3_GiveCommandUtil();
+            case "v1_9_R1":
+                GetCommandUtil.giveTool = new V1_9_R1_GiveCommandUtil();
                 GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
                 GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
                 return true;
