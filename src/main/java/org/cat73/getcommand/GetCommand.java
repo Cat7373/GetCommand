@@ -3,7 +3,7 @@ package org.cat73.getcommand;
 import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.getcommand.listeners.EntityListener;
-import org.cat73.getcommand.subcommands.Clear;
+import org.cat73.getcommand.subcommands.Cancel;
 import org.cat73.getcommand.subcommands.Entity;
 import org.cat73.getcommand.subcommands.Item;
 import org.cat73.getcommand.subcommands.Save;
@@ -16,7 +16,7 @@ public class GetCommand extends BukkitPlugin {
         commandHandler.registerCommand(new Entity());
         // Block:
         commandHandler.registerCommand(new Save());
-        commandHandler.registerCommand(new Clear()); // TODO cancel
+        commandHandler.registerCommand(new Cancel());
     }
 
     @Override

@@ -8,17 +8,15 @@ import org.cat73.bukkitplugin.command.SubCommandInfo;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@SubCommandInfo(name = "Clear", permission = "getcommand.clear", description = "取消当前操作并清空已获取到的命令", aliases = "c")
-public class Clear implements ISubCommand {
+@SubCommandInfo(name = "Cancel", permission = "getcommand.cancel", description = "取消当前操作", aliases = "c")
+public class Cancel implements ISubCommand {
 
     @Override
     public boolean handle(final CommandSender sender, final String[] args) throws Exception {
         final String playerName = sender.getName();
 
-        PlayersStatus.commands.put(playerName, "");
         PlayersStatus.status.put(playerName, Status.Finish);
-
-        sender.sendMessage(String.format("%s成功取消当前操作并清空已获取到的命令", ChatColor.GREEN));
+        sender.sendMessage(String.format("%s成功取消当前操作", ChatColor.GREEN));
 
         return true;
     }

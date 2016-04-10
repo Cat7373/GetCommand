@@ -27,5 +27,5 @@ permissions:
     default: op
   getcommand.save.command_block:
     default: op
-  getcommand.clear:
+  getcommand.cancel:
     default: op
