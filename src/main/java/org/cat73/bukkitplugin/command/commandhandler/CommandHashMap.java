@@ -1,6 +1,8 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.commandhandler;
 
 import java.util.HashMap;
+
+import org.cat73.bukkitplugin.command.command.ICommand;
 
 /**
  * 管理名称与命令表转换的类, 内部会自动将 key 转换为小写, 因此本类是不区分大小写的<br>

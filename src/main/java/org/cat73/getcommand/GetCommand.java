@@ -2,7 +2,7 @@ package org.cat73.getcommand;
 
 import org.bukkit.plugin.PluginManager;
 import org.cat73.bukkitplugin.BukkitPlugin;
-import org.cat73.bukkitplugin.command.SubCommandHandler;
+import org.cat73.bukkitplugin.command.commandhandler.SubCommandHandler;
 import org.cat73.getcommand.listeners.EntityListener;
 import org.cat73.getcommand.listeners.PlayerListener;
 import org.cat73.getcommand.subcommands.Block;

@@ -1,4 +1,4 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.command;
 
 import org.bukkit.command.CommandSender;
 

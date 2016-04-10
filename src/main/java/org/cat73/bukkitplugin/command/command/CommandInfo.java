@@ -1,4 +1,4 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

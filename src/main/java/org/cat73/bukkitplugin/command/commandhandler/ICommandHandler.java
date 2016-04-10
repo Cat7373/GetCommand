@@ -1,9 +1,11 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.commandhandler;
 
 import java.util.Collection;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permissible;
+import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.command.ICommand;
 
 public interface ICommandHandler extends CommandExecutor {
     /**

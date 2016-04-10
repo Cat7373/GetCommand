@@ -1,4 +1,4 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.commandhandler;
 
 import java.util.HashMap;
 
@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.IModule;
+import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.bukkitplugin.command.commands.Help;
 import org.cat73.bukkitplugin.utils.PluginLog;
 

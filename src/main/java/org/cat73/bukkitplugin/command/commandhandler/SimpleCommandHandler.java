@@ -1,7 +1,10 @@
-package org.cat73.bukkitplugin.command;
+package org.cat73.bukkitplugin.command.commandhandler;
 
 import java.util.Collection;
 import java.util.HashMap;
+
+import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.command.ICommand;
 
 public abstract class SimpleCommandHandler implements ICommandHandler {
     /** 存储的命令列表 */
