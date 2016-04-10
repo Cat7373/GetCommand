@@ -7,6 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.IModule;
 import org.cat73.bukkitplugin.command.subcommands.Help;
@@ -71,7 +73,7 @@ public class CommandHandler implements CommandExecutor, IModule {
      * @param sender 执行者
      * @return 该执行者有无权限执行这条子命令
      */
-    public static boolean hasPermission(final ISubCommand command, final CommandSender sender) {
+    public static boolean hasPermission(final ISubCommand command, final Permissible sender) {
         // 获取子命令的信息
         final SubCommandInfo info = CommandHandler.getCommandInfo(command);
 
@@ -175,9 +177,15 @@ public class CommandHandler implements CommandExecutor, IModule {
             }
 
             // 判断有无权限执行这个子命令
+            final SubCommandInfo info = CommandHandler.getCommandInfo(commandExecer);
             if (!CommandHandler.hasPermission(commandExecer, sender)) {
-                final SubCommandInfo info = CommandHandler.getCommandInfo(commandExecer);
                 sender.sendMessage(String.format("%s%s你需要 %s 权限才能执行 %s 命令.", ChatColor.RED, ChatColor.BOLD, info.permission(), info.name()));
+                return true;
+            }
+
+            // 判断 playerOnly
+            if (info.playerOnly() && !(sender instanceof Player)) {
+                sender.sendMessage(String.format("%s%s这个命令仅限玩家执行.", ChatColor.RED, ChatColor.BOLD));
                 return true;
             }
 

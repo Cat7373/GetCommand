@@ -31,6 +31,6 @@ public @interface SubCommandInfo {
     /** 子命令的简写列表 */
     String[] aliases() default "";
 
-    // TODO boolean playeronly default false;
-    // TODO boolean consoleonly default false;
+    /** 仅玩家可以执行的子命令 */
+    boolean playerOnly() default false;
 }

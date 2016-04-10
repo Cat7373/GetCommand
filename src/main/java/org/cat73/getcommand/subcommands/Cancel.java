@@ -8,7 +8,7 @@ import org.cat73.bukkitplugin.command.SubCommandInfo;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@SubCommandInfo(name = "Cancel", permission = "getcommand.cancel", description = "取消当前操作", aliases = "c")
+@SubCommandInfo(name = "Cancel", permission = "getcommand.cancel", playerOnly = true, description = "取消当前操作", aliases = "c")
 public class Cancel implements ISubCommand {
 
     @Override

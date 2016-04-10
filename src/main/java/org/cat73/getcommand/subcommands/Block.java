@@ -8,7 +8,7 @@ import org.cat73.bukkitplugin.command.SubCommandInfo;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@SubCommandInfo(name = "Block", permission = "getcommand.block", description = "点一下方块来获取 setblock 命令", aliases = "b")
+@SubCommandInfo(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
 public class Block implements ISubCommand {
     @Override
     public boolean handle(final CommandSender sender, final String[] args) throws Exception {
