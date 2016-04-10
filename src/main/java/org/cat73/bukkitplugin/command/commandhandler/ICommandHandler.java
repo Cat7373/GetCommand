@@ -33,11 +33,7 @@ public interface ICommandHandler extends CommandExecutor {
         if (info.permission().isEmpty()) {
             return true;
         } else {
-            if (sender.hasPermission(info.permission())) {
-                return true;
-            } else {
-                return false;
-            }
+            return sender.hasPermission(info.permission());
         }
     }
 
