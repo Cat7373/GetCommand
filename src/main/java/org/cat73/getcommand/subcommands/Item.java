@@ -43,7 +43,7 @@ public class Item implements ISubCommand {
         PlayersStatus.commands.put(playerName, command);
         PlayersStatus.status.put(playerName, Status.Finish);
 
-        sender.sendMessage(String.format("%s获取 give 命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
+        sender.sendMessage(String.format("%s获取 give 命令成功，请用 save 来保存命令", ChatColor.GREEN));
 
         return true;
     }

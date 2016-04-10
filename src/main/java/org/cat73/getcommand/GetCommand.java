@@ -6,7 +6,7 @@ import org.cat73.getcommand.listeners.EntityListener;
 import org.cat73.getcommand.subcommands.Clear;
 import org.cat73.getcommand.subcommands.Entity;
 import org.cat73.getcommand.subcommands.Item;
-import org.cat73.getcommand.subcommands.Show;
+import org.cat73.getcommand.subcommands.Save;
 
 public class GetCommand extends BukkitPlugin {
     public GetCommand() {
@@ -15,9 +15,8 @@ public class GetCommand extends BukkitPlugin {
         commandHandler.registerCommand(new Item());
         commandHandler.registerCommand(new Entity());
         // Block:
-        commandHandler.registerCommand(new Show()); // TODO Remove
-        // Save [chat | file | console | defaule: command_block]
-        commandHandler.registerCommand(new Clear());
+        commandHandler.registerCommand(new Save());
+        commandHandler.registerCommand(new Clear()); // TODO cancel
     }
 
     @Override

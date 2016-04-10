@@ -17,9 +17,15 @@ permissions:
     default: op
   getcommand.entity:
     default: op
-  getcommand.show:
-    default: op
   getcommand.save:
+    default: op
+  getcommand.save.chat:
+    default: op
+  getcommand.save.file:
+    default: op
+  getcommand.save.console:
+    default: op
+  getcommand.save.command_block:
     default: op
   getcommand.clear:
     default: op

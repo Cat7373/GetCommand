@@ -33,7 +33,7 @@ public class EntityListener implements Listener {
                 PlayersStatus.commands.put(playerName, command);
                 PlayersStatus.status.put(playerName, Status.Finish);
 
-                player.sendMessage(String.format("%s获取 summon 命令成功，请用 show 或 save 来查看或保存", ChatColor.GREEN));
+                player.sendMessage(String.format("%s获取 summon 命令成功，请用 save 来保存命令", ChatColor.GREEN));
             }
         }
     }

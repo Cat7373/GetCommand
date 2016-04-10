@@ -37,7 +37,7 @@ public class BukkitPlugin extends JavaPlugin {
         // 初始化 Log
         Log.setLogger(this.getLogger());
 
-        // 保存默认配置
+        // 保存默认配置 // TODO 无 config.yml 时无法正常工作
         this.saveDefaultConfig();
 
         // 启动所有模块
