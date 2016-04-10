@@ -13,6 +13,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
+import org.cat73.getcommand.utils.CommandUtil;
+import org.cat73.getcommand.utils.DataTagUtil;
 
 public class PlayerListener implements Listener {
     @EventHandler
@@ -34,13 +36,18 @@ public class PlayerListener implements Listener {
             final Status status = PlayersStatus.status.get(playerName);
             if (status == Status.Wait_Block) { // 等待点击方块来获取 setblock 命令
                 event.setCancelled(true);
-                player.sendMessage(String.format("%s获取 setblock 命令暂未实现", ChatColor.YELLOW));
-
                 // 准备数据
-                // Block block = event.getClickedBlock();
-                // String blockName = block.getType().name().toLowerCase();
-                // @SuppressWarnings("deprecation")
-                // int damage = block.getData();
+                final Block block = event.getClickedBlock();
+                final String TileName = block.getType().name().toLowerCase();
+                final byte dataValue = block.getData();
+                final String dataTag = DataTagUtil.getDataTag(block);
+                final String command = CommandUtil.getSetblockCommand("~", "~", "~", TileName, dataValue, "replace", dataTag);
+
+                // 设置状态
+                PlayersStatus.commands.put(playerName, command);
+                PlayersStatus.status.put(playerName, Status.Finish);
+
+                player.sendMessage(String.format("%s获取 setblock 命令成功，请用 save 来保存命令", ChatColor.GREEN));
             } else if (status == Status.Wait_CommandBlock) { // 等待将已获取到的命令写入到命令方块中
                 // 获取被点击的方块
                 final Block block = event.getClickedBlock();

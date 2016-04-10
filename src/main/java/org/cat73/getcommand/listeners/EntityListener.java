@@ -6,11 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
-import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.CommandUtil;
+import org.cat73.getcommand.utils.DataTagUtil;
 
 public class EntityListener implements Listener {
     @EventHandler
@@ -26,8 +25,8 @@ public class EntityListener implements Listener {
                 // 准备数据
                 @SuppressWarnings("deprecation")
                 final String entityName = entity.getType().getName();
-                final String NBTString = this.getNBTString(entity);
-                final String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", NBTString);
+                final String dataTag = DataTagUtil.getDataTag(entity);
+                final String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", dataTag);
 
                 // 设置状态
                 PlayersStatus.commands.put(playerName, command);
@@ -36,19 +35,5 @@ public class EntityListener implements Listener {
                 player.sendMessage(String.format("%s获取 summon 命令成功，请用 save 来保存命令", ChatColor.GREEN));
             }
         }
-    }
-
-    private String getNBTString(final Entity entity) throws Exception {
-        // 获取 entity 的 NBTTagCompound
-        // NBTTagCompound NBTTagCompound = entity.entity.e(NBTTagCompound)
-        final Class<?> craftEntityClass = CraftBukkitReflectUtil.getCraftBukkitClass("entity.CraftEntity");
-        final Object handle = ReflectUtil.getFieldValue(craftEntityClass, entity, "entity");
-        final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
-        final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
-        final Class<?> minecraftEntity = CraftBukkitReflectUtil.getMinecraftServerClass("Entity");
-        ReflectUtil.invokeMethod(minecraftEntity, handle, "b", NBTTagCompound);
-
-        // 将 NBTTagCompound 序列化成 JSON 并返回
-        return CommandUtil.NBTTagCompoundToJson(NBTTagCompound, null);
     }
 }
