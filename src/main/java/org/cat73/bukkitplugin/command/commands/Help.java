@@ -1,4 +1,4 @@
-package org.cat73.bukkitplugin.command.subcommands;
+package org.cat73.bukkitplugin.command.commands;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -7,22 +7,26 @@ import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.CommandHandler;
-import org.cat73.bukkitplugin.command.ISubCommand;
-import org.cat73.bukkitplugin.command.SubCommandInfo;
+import org.cat73.bukkitplugin.command.CommandInfo;
+import org.cat73.bukkitplugin.command.ICommand;
+import org.cat73.bukkitplugin.command.ICommandHandler;
 
 /**
  * 帮助类
  *
  * @author cat73
  */
-@SubCommandInfo(name = "Help", usage = "[page | commandName]", description = "显示帮助信息", aliases = "h")
-public class Help implements ISubCommand {
+@CommandInfo(name = "Help", usage = "[page | commandName]", description = "显示帮助信息", aliases = "h")
+public class Help implements ICommand {
     // TODO 私有化
     /** 每页输出多少条帮助 */
     public int pageCommandCount = 5;
     /** 子命令所属的命令模块 */
-    private CommandHandler commandHandler;
+    private final ICommandHandler commandHandler;
+
+    public Help(final ICommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
+    }
 
     /**
      * 打印某一页帮助信息
@@ -32,14 +36,14 @@ public class Help implements ISubCommand {
      */
     private void sendHelpPage(final CommandSender sender, int page) {
         // 所有子命令
-        final Collection<ISubCommand> commands = this.commandHandler.getCommands();
+        final Collection<ICommand> commands = this.commandHandler.getCommands();
 
         // 获取有权执行的子命令
-        final Set<ISubCommand> hasPermissionCommands = new HashSet<>();
-        Iterator<ISubCommand> it = commands.iterator();
+        final Set<ICommand> hasPermissionCommands = new HashSet<>();
+        Iterator<ICommand> it = commands.iterator();
         while (it.hasNext()) {
-            final ISubCommand command = it.next();
-            if (CommandHandler.hasPermission(command, sender)) {
+            final ICommand command = it.next();
+            if (ICommandHandler.hasPermission(command, sender)) {
                 hasPermissionCommands.add(command);
             }
         }
@@ -61,8 +65,8 @@ public class Help implements ISubCommand {
         }
         // 输出目标页的内容
         for (int i = 0; i < this.pageCommandCount && it.hasNext(); i++) {
-            final ISubCommand commandExecer = it.next();
-            final SubCommandInfo info = CommandHandler.getCommandInfo(commandExecer);
+            final ICommand commandExecer = it.next();
+            final CommandInfo info = ICommandHandler.getCommandInfo(commandExecer);
             sender.sendMessage(ChatColor.GREEN + String.format("%s -- %s", info.name(), info.description()));
         }
     }
@@ -73,11 +77,11 @@ public class Help implements ISubCommand {
      * @param sender
      * @param command 命令的执行器
      */
-    public void sendCommandHelp(final CommandSender sender, final ISubCommand command) {
-        final SubCommandInfo info = CommandHandler.getCommandInfo(command);
+    public void sendCommandHelp(final CommandSender sender, final ICommand command) {
+        final CommandInfo info = ICommandHandler.getCommandInfo(command);
         sender.sendMessage(String.format("%s%s------- help %s ----------------", ChatColor.AQUA, ChatColor.BOLD, info.name()));
         // 命令的用法 / 参数
-        sender.sendMessage(ChatColor.GREEN + String.format("/%s %s %s", this.commandHandler.baseCommand, info.name(), info.usage()));
+        sender.sendMessage(ChatColor.GREEN + this.commandHandler.getUsage(command));
         // 命令的说明
         sender.sendMessage(ChatColor.GREEN + info.description());
         // 命令的帮助信息
@@ -107,8 +111,8 @@ public class Help implements ISubCommand {
         // 首先来判断是不是有参数 没参数就打印第一页
         if (args.length >= 1) {
             // 判断是不是请求某个已存在命令的帮助
-            final ISubCommand commandExecer = this.commandHandler.getCommandByNameOrAliase(args[0]);
-            if (commandExecer != null && CommandHandler.hasPermission(commandExecer, sender)) {
+            final ICommand commandExecer = this.commandHandler.getCommand(args[0]);
+            if (commandExecer != null && ICommandHandler.hasPermission(commandExecer, sender)) {
                 // 如果是且有权限执行则打印该命令的帮助信息
                 this.sendCommandHelp(sender, commandExecer);
             } else {
@@ -130,10 +134,5 @@ public class Help implements ISubCommand {
         }
 
         return true;
-    }
-
-    @Override
-    public void setCommandHandler(final CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
     }
 }

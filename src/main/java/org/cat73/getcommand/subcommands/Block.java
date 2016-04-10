@@ -2,14 +2,13 @@ package org.cat73.getcommand.subcommands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.CommandHandler;
-import org.cat73.bukkitplugin.command.ISubCommand;
-import org.cat73.bukkitplugin.command.SubCommandInfo;
+import org.cat73.bukkitplugin.command.CommandInfo;
+import org.cat73.bukkitplugin.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@SubCommandInfo(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
-public class Block implements ISubCommand {
+@CommandInfo(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
+public class Block implements ICommand {
     @Override
     public boolean handle(final CommandSender sender, final String[] args) throws Exception {
         final String playerName = sender.getName();
@@ -19,7 +18,4 @@ public class Block implements ISubCommand {
 
         return true;
     }
-
-    @Override
-    public void setCommandHandler(final CommandHandler commandHandler) {}
 }

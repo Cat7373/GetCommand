@@ -7,16 +7,15 @@ import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.cat73.bukkitplugin.command.CommandHandler;
-import org.cat73.bukkitplugin.command.ISubCommand;
-import org.cat73.bukkitplugin.command.SubCommandInfo;
+import org.cat73.bukkitplugin.command.CommandInfo;
+import org.cat73.bukkitplugin.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.DataTagUtil;
 
-@SubCommandInfo(name = "Item", permission = "getcommand.item", playerOnly = true, description = "获取手上物品的 Give 命令", aliases = "i")
-public class Item implements ISubCommand {
+@CommandInfo(name = "Item", permission = "getcommand.item", playerOnly = true, description = "获取手上物品的 Give 命令", aliases = "i")
+public class Item implements ICommand {
     private final Server server = Bukkit.getServer();
 
     @Override
@@ -50,7 +49,4 @@ public class Item implements ISubCommand {
 
         return true;
     }
-
-    @Override
-    public void setCommandHandler(final CommandHandler commandHandler) {}
 }

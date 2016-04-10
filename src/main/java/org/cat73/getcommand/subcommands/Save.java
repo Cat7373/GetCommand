@@ -3,14 +3,13 @@ package org.cat73.getcommand.subcommands;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.CommandHandler;
-import org.cat73.bukkitplugin.command.ISubCommand;
-import org.cat73.bukkitplugin.command.SubCommandInfo;
+import org.cat73.bukkitplugin.command.CommandInfo;
+import org.cat73.bukkitplugin.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@SubCommandInfo(name = "Save", permission = "getcommand.save", playerOnly = true, usage = "[chat | file | console | command_block]", description = "保存上一个获取到的命令", aliases = "s", help = { "chat: 将指令在聊天信息输出(默认)", "file: 将指令保存到 log 文件里, 简写: f(未实现)", "console: 将指令输出到控制台, 简写: c", "command_block: 将指令输出到空白的命令方块中, 简写: cb" })
-public class Save implements ISubCommand {
+@CommandInfo(name = "Save", permission = "getcommand.save", playerOnly = true, usage = "[chat | file | console | command_block]", description = "保存上一个获取到的命令", aliases = "s", help = { "chat: 将指令在聊天信息输出(默认)", "file: 将指令保存到 log 文件里, 简写: f(未实现)", "console: 将指令输出到控制台, 简写: c", "command_block: 将指令输出到空白的命令方块中, 简写: cb" })
+public class Save implements ICommand {
     @Override
     public boolean handle(CommandSender sender, String[] args) throws Exception {
         final String playerName = sender.getName();
@@ -89,7 +88,4 @@ public class Save implements ISubCommand {
             return false;
         }
     }
-
-    @Override
-    public void setCommandHandler(final CommandHandler commandHandler) {}
 }
