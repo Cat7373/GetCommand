@@ -9,7 +9,7 @@ import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 public class DataTagUtil {
     /**
      * 获取 Entity 的附加数据标签
-     * 
+     *
      * @param entity 要被获取附加数据标签的实体
      * @return 目标实体的附加数据标签
      * @throws Exception
@@ -30,7 +30,7 @@ public class DataTagUtil {
 
     /**
      * 获取 Item 的附加数据标签
-     * 
+     *
      * @param item 要被获取附加数据标签的物品
      * @return 目标物品的附加数据标签
      * @throws Exception

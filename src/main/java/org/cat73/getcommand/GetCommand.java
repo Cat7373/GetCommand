@@ -10,6 +10,7 @@ import org.cat73.getcommand.subcommands.Entity;
 import org.cat73.getcommand.subcommands.Item;
 import org.cat73.getcommand.subcommands.Save;
 
+// TODO 多语言
 public class GetCommand extends BukkitPlugin {
     public GetCommand() {
         // 注册命令
