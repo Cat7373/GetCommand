@@ -7,6 +7,7 @@ import org.cat73.bukkitplugin.IModule;
 
 public class PlayersStatus implements IModule {
     // TODO 属性私有化
+    // TODO 玩家进入服务器自动创建PlayerStatus 退出自动清理
     /** 玩家获取到的命令 */
     public static final HashMap<String, String> commands = new HashMap<>();
     /** 玩家的当前状态 */

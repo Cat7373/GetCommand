@@ -15,6 +15,7 @@ import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.CommandUtil;
 
+// TODO 空手执行会出错
 @SubCommandInfo(name = "Item", permission = "getcommand.item", description = "获取手上物品的 Give 命令", aliases = "i")
 public class Item implements ISubCommand {
     private final Server server = Bukkit.getServer();

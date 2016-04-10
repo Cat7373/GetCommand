@@ -3,6 +3,8 @@ package org.cat73.getcommand;
 import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.command.CommandHandler;
 import org.cat73.getcommand.listeners.EntityListener;
+import org.cat73.getcommand.listeners.PlayerListener;
+import org.cat73.getcommand.subcommands.Block;
 import org.cat73.getcommand.subcommands.Cancel;
 import org.cat73.getcommand.subcommands.Entity;
 import org.cat73.getcommand.subcommands.Item;
@@ -14,7 +16,7 @@ public class GetCommand extends BukkitPlugin {
         final CommandHandler commandHandler = this.initCommandHandler("getcommand");
         commandHandler.registerCommand(new Item());
         commandHandler.registerCommand(new Entity());
-        // Block:
+        commandHandler.registerCommand(new Block());
         commandHandler.registerCommand(new Save());
         commandHandler.registerCommand(new Cancel());
     }
@@ -25,5 +27,6 @@ public class GetCommand extends BukkitPlugin {
 
         // 注册触发器
         this.getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
     }
 }
