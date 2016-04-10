@@ -1,6 +1,5 @@
 package org.cat73.getcommand.utils;
 
-// TODO 命令格式支持配置
 /**
  * 命令工具类
  *

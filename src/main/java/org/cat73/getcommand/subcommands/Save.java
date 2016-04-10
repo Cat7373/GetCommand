@@ -12,14 +12,18 @@ import org.cat73.getcommand.status.Status;
 public class Save implements ICommand {
     @Override
     public boolean handle(CommandSender sender, String[] args) throws Exception {
+        // 获取玩家名
         final String playerName = sender.getName();
+        // 获取上一个获取到的命令
         final String command = PlayersStatus.commands.get(playerName);
+        // 判断命令是否为空
         if (command != null && !command.isEmpty()) {
+            // 如果无参数则默认为 chat
             if (args.length == 0) {
                 args = new String[] { "chat" };
             }
 
-            // 1 chat, 2 file, 3 console, 4 command_block
+            // 保存类型 1 chat, 2 file, 3 console, 4 command_block
             int saveType = 0;
             // 判断是否有权执行 准备保存类型 过滤无效参数
             switch (args[0].toLowerCase()) {
@@ -82,10 +86,13 @@ public class Save implements ICommand {
     }
 
     private boolean hasPermission(final CommandSender sender, String permission) {
+        // 拼凑完整权限字符串
         permission = String.format("getcommand.save.%s", permission);
+        // 判断是否有权限
         if (sender.hasPermission(permission)) {
             return true;
         } else {
+            // 无权限则输出提示
             sender.sendMessage(String.format("%s你需要 %s 权限才能执行这个命令", ChatColor.RED, permission));
             return false;
         }
