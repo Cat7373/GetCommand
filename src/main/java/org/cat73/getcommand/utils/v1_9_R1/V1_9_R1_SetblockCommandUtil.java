@@ -16,7 +16,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         // 获取附加数据值
         final byte dataValue = block.getData();
         // 获取附加数据标签
-        final String dataTag = V1_9_R1_SetblockCommandUtil.getDataTag(block);
+        final String dataTag = this.getDataTag(block);
         // 拼凑 setblock 命令
         final String command = CommandUtil.getSetblockCommand("~", "~", "~", TileName, dataValue, "replace", dataTag);
 
@@ -31,7 +31,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
      * @return 目标方块的附加数据标签
      * @throws Exception
      */
-    public static String getDataTag(final Block block) throws Exception {
+    private String getDataTag(final Block block) throws Exception {
         // 方块所在的世界
         final World world = block.getWorld();
 
@@ -41,8 +41,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         final int z = block.getZ();
 
         // TileEntity tileEntity = world.getTileEntityAt(x, y, z);
-        final Class<?> craftWorldClass = CraftBukkitReflectUtil.getCraftBukkitClass("CraftWorld");
-        final Object tileEntity = ReflectUtil.invokeMethodLimitArgsTypes(craftWorldClass, world, "getTileEntityAt", new Integer[] { x, y, z }, new Class<?>[] { int.class, int.class, int.class });
+        final Object tileEntity = ReflectUtil.invokeMethodLimitArgsTypes(world.getClass(), world, "getTileEntityAt", new Integer[] { x, y, z }, new Class<?>[] { int.class, int.class, int.class });
 
         // 如果没有附加数据标签则直接返回
         if (tileEntity == null) {
@@ -54,8 +53,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
 
         // tileEntity.save(NBTTagCompound);
-        final Class<?> tileEntityClass = CraftBukkitReflectUtil.getMinecraftServerClass("TileEntity");
-        ReflectUtil.invokeMethod(tileEntityClass, tileEntity, "save", NBTTagCompound);
+        ReflectUtil.invokeMethod(tileEntity, "save", NBTTagCompound);
 
         // 将 NBTTagCompound 序列化成 JSON 并返回
         return NBTTagCompoundToJsonUtil.NBTTagCompoundToJson(NBTTagCompound, null);

@@ -13,7 +13,7 @@ public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
         // 获取实体名
         final String entityName = entity.getType().getName();
         // 获取实体附加数据标签
-        final String dataTag = V1_9_R1_SummonCommandUtil.getDataTag(entity);
+        final String dataTag = this.getDataTag(entity);
         // 拼凑 summon 命令
         final String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", dataTag);
 
@@ -28,17 +28,15 @@ public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
      * @return 目标实体的附加数据标签
      * @throws Exception
      */
-    public static String getDataTag(final Entity entity) throws Exception {
+    private String getDataTag(final Entity entity) throws Exception {
         // 获取 entity 的 NBTTagCompound
         // NBTTagCompound NBTTagCompound = new NBTTagCompound();
         final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
         final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
 
         // entity.entity.b(NBTTagCompound);
-        final Class<?> craftEntityClass = CraftBukkitReflectUtil.getCraftBukkitClass("entity.CraftEntity");
-        final Object handle = ReflectUtil.getFieldValue(craftEntityClass, entity, "entity");
-        final Class<?> minecraftEntity = CraftBukkitReflectUtil.getMinecraftServerClass("Entity");
-        ReflectUtil.invokeMethod(minecraftEntity, handle, "b", NBTTagCompound);
+        final Object handle = ReflectUtil.getFieldValue(entity, "entity");
+        ReflectUtil.invokeMethod(handle, "b", NBTTagCompound);
 
         // 将 NBTTagCompound 序列化成 JSON 并返回
         return NBTTagCompoundToJsonUtil.NBTTagCompoundToJson(NBTTagCompound, null);

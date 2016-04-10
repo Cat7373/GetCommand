@@ -22,7 +22,7 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
             // 获取物品的附加数据值
             final int data = item.getDurability();
             // 获取物品的附加数据标签
-            final String dataTag = V1_8_R3_GiveCommandUtil.getDataTag(item);
+            final String dataTag = this.getDataTag(item);
 
             // 拼凑 give 命令
             final String command = CommandUtil.getGiveCommand(playerName, itemName, 1, data, dataTag);
@@ -40,7 +40,7 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
      * @return 目标物品的附加数据标签
      * @throws Exception
      */
-    public static String getDataTag(final ItemStack item) throws Exception {
+    private String getDataTag(final ItemStack item) throws Exception {
         // 获取 item 的 NBTTagCompound
         // NBTTagCompound NBTTagCompound = new NBTTagCompound();
         final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");

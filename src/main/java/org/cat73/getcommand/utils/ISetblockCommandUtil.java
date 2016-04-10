@@ -10,7 +10,7 @@ import org.bukkit.block.Block;
 public interface ISetblockCommandUtil {
     /**
      * 通过方块来获取 setblock 命令
-     * 
+     *
      * @param block 目标方块
      * @return 对应的 setblock 命令
      * @throws Exception

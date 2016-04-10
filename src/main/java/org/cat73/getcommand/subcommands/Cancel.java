@@ -15,7 +15,7 @@ public class Cancel implements ICommand {
         final String playerName = sender.getName();
         // 设置玩家状态为完成
         PlayersStatus.status.put(playerName, Status.Finish);
-        
+
         // 发送提示
         sender.sendMessage(String.format("%s成功取消当前操作", ChatColor.GREEN));
 

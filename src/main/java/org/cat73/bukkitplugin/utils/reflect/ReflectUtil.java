@@ -10,11 +10,59 @@ import java.lang.reflect.Method;
  * @author Cat73
  */
 public class ReflectUtil {
+    // - 搜索
+    /**
+     * 搜索属性
+     * 
+     * @param class_ 属性所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
+     * @param fieldName 属性名
+     * @return 找到的属性，如果没找到则返回 null
+     */
+    public static Field searchField(Class<?> class_, final String fieldName) throws Exception {
+        Field field = null;
+        while (true) {
+            try {
+                field = class_.getDeclaredField(fieldName);
+                return field;
+            } catch (final NoSuchFieldException e) {
+                class_ = class_.getSuperclass();
+                if (class_ == Object.class || class_ == null) {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    /**
+     * 搜索方法
+     *
+     * @param class_ 方法所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
+     * @param methodName 方法名
+     * @param argTypes 参数的类型列表
+     * @return 找到的方法，如果没找到则返回 null
+     * @throws Exception
+     */
+    public static Method searchMethod(Class<?> class_, final String methodName, final Class<?>[] argTypes) throws Exception {
+        // 查找方法
+        Method method = null;
+        while (true) {
+            try {
+                method = class_.getDeclaredMethod(methodName, argTypes);
+                return method;
+            } catch (final NoSuchMethodException e) {
+                class_ = class_.getSuperclass();
+                if (class_ == Object.class || class_ == null) {
+                    throw e;
+                }
+            }
+        }
+    }
+
     // - 属性
     /**
      * 获取一个属性的值
      *
-     * @param class_ 声明这个属性的 Class
+     * @param class_ 属性所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
      * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
      * @param fieldName 属性名
      * @return 该属性的值
@@ -22,7 +70,8 @@ public class ReflectUtil {
      */
     public static Object getFieldValue(final Class<?> class_, final Object object, final String fieldName) throws Exception {
         // 查找属性
-        final Field field = class_.getDeclaredField(fieldName);
+        final Field field = ReflectUtil.searchField(class_, fieldName);
+
         // 保存原访问权限
         final boolean accessible = field.isAccessible();
         // 设置允许通过反射访问
@@ -54,7 +103,7 @@ public class ReflectUtil {
     /**
      * 设置一个属性的值
      *
-     * @param class_ 声明这个属性的 Class
+     * @param class_ 属性所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
      * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
      * @param fieldName 属性名
      * @param value 目标值
@@ -62,7 +111,7 @@ public class ReflectUtil {
      */
     public static void setFieldValue(final Class<?> class_, final Object object, final String fieldName, final Object value) throws Exception {
         // 查找属性
-        final Field field = class_.getDeclaredField(fieldName);
+        final Field field = ReflectUtil.searchField(class_, fieldName);
         // 保存原访问权限
         final boolean accessible = field.isAccessible();
         // 设置允许通过反射访问
@@ -80,7 +129,7 @@ public class ReflectUtil {
     /**
      * 设置一个属性的值
      *
-     * @param object 属性所在的对象, 如果是静态属性, 则忽略此参数
+     * @param object 属性所在的对象
      * @param fieldName 属性名
      * @param value 目标值
      * @throws Exception
@@ -93,7 +142,7 @@ public class ReflectUtil {
     /**
      * 调用一个方法
      *
-     * @param class_ 声明这个方法的 Class
+     * @param class_ 方法所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
      * @param object 方法所在的对象, 如果是静态方法, 则忽略此参数
      * @param methodName 方法名
      * @param args 参数列表
@@ -103,7 +152,7 @@ public class ReflectUtil {
      */
     public static Object invokeMethodLimitArgsTypes(final Class<?> class_, final Object object, final String methodName, final Object[] args, final Class<?>[] argTypes) throws Exception {
         // 查找方法
-        final Method method = class_.getDeclaredMethod(methodName, argTypes);
+        final Method method = ReflectUtil.searchMethod(class_, methodName, argTypes);
         // 保存原访问权限
         final boolean accessible = method.isAccessible();
         // 设置允许通过反射访问
@@ -123,7 +172,7 @@ public class ReflectUtil {
     /**
      * 调用一个方法
      *
-     * @param class_ 声明这个方法的 Class
+     * @param class_ 方法所在的 Class，会从这个 Class 一级一级往上查，直到 Object(不包含)
      * @param object 方法所在的对象, 如果是静态方法, 则忽略此参数
      * @param methodName 方法名
      * @param args 参数列表
@@ -143,7 +192,7 @@ public class ReflectUtil {
     /**
      * 调用一个方法
      *
-     * @param object 方法所在的对象, 如果是静态方法, 则忽略此参数
+     * @param object 方法所在的对象
      * @param methodName 方法名
      * @param args 参数列表
      * @return 方法的返回值

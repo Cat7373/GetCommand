@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
                 // 如果玩家正在等待方块
                 // 取消这次操作
                 event.setCancelled(true);
-                
+
                 // 准备数据
                 final Block block = event.getClickedBlock();
                 final String command = GetCommandUtil.getBlockSetBlockAtCommand(block);
@@ -60,23 +60,23 @@ public class PlayerListener implements Listener {
                 // 如果玩家正在等待方块命令方块
                 // 获取被点击的方块
                 final Block block = event.getClickedBlock();
-                
+
                 // 判断是否为命令方块
                 if (block.getType() == Material.COMMAND) {
                     // 取消这次操作
                     event.setCancelled(true);
-                    
+
                     // 判断玩家是否在创造模式
                     if (player.getGameMode() == GameMode.CREATIVE) {
                         // 获取命令方块的附加数据
                         final CommandBlock commandBlock = (CommandBlock) block.getState();
-                        
+
                         // 判断目标命令方块中的命令是否为空
                         if (commandBlock.getCommand().trim().isEmpty()) {
                             // 设置目标命令方块的命令
                             commandBlock.setCommand(PlayersStatus.commands.get(playerName));
                             commandBlock.update();
-                            
+
                             // 设置状态
                             PlayersStatus.status.put(playerName, Status.Finish);
 
