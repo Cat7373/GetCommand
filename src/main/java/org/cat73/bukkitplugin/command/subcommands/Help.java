@@ -16,7 +16,7 @@ import org.cat73.bukkitplugin.command.SubCommandInfo;
  *
  * @author cat73
  */
-@SubCommandInfo(name = "help", usage = "[page | commandName]", description = "输出帮助信息", aliases = "h")
+@SubCommandInfo(name = "Help", usage = "[page | commandName]", description = "显示帮助信息", aliases = "h")
 public class Help implements ISubCommand {
     // TODO 私有化
     /** 每页输出多少条帮助 */

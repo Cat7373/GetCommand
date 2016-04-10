@@ -2,6 +2,7 @@ package org.cat73.getcommand.subcommands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,7 +16,6 @@ import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.CommandUtil;
 
-// TODO 空手执行会出错
 @SubCommandInfo(name = "Item", permission = "getcommand.item", description = "获取手上物品的 Give 命令", aliases = "i")
 public class Item implements ISubCommand {
     private final Server server = Bukkit.getServer();
@@ -28,23 +28,26 @@ public class Item implements ISubCommand {
         final Player player = this.server.getPlayer(playerName);
         // 获取玩家手上的物品
         final ItemStack item = player.getInventory().getItemInMainHand();
+        if (item.getType() != Material.AIR) {
+            // 准备数据
+            // 获取物品名 TODO 找找有没有更好的获取方案
+            final String itemName = item.getType().name().toLowerCase();
+            // 获取物品的损害值
+            final int damage = item.getDurability();
+            // 获取物品的 NBT 标签的 JSON 字符串
+            final String NBTString = this.getNBTString(item);
 
-        // 准备数据
-        // 获取物品名 TODO 找找有没有更好的获取方案
-        final String itemName = item.getType().name().toLowerCase();
-        // 获取物品的损害值
-        final int damage = item.getDurability();
-        // 获取物品的 NBT 标签的 JSON 字符串
-        final String NBTString = this.getNBTString(item);
+            // 获取对应的 give 指令
+            final String command = CommandUtil.getGiveCommand(playerName, itemName, 1, damage, NBTString);
 
-        // 获取对应的 give 指令
-        final String command = CommandUtil.getGiveCommand(playerName, itemName, 1, damage, NBTString);
+            // 设置状态
+            PlayersStatus.commands.put(playerName, command);
+            PlayersStatus.status.put(playerName, Status.Finish);
 
-        // 设置状态
-        PlayersStatus.commands.put(playerName, command);
-        PlayersStatus.status.put(playerName, Status.Finish);
-
-        sender.sendMessage(String.format("%s获取 give 命令成功，请用 save 来保存命令", ChatColor.GREEN));
+            sender.sendMessage(String.format("%s获取 give 命令成功，请用 save 来保存命令", ChatColor.GREEN));
+        } else {
+            sender.sendMessage(String.format("%s必须手持一个物品才能执行这个命令", ChatColor.RED));
+        }
 
         return true;
     }
