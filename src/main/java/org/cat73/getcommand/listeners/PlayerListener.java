@@ -18,7 +18,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     /**
      * 玩家打方块的触发
-     * 
+     *
      * @param event
      * @throws Exception
      */
