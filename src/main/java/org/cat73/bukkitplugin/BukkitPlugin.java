@@ -1,6 +1,7 @@
 package org.cat73.bukkitplugin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.utils.PluginLog;
@@ -12,7 +13,7 @@ import org.cat73.bukkitplugin.utils.PluginLog;
  */
 public class BukkitPlugin extends JavaPlugin {
     /** 所有模块 */
-    protected final ArrayList<IModule> modules = new ArrayList<>();
+    protected final List<IModule> modules = new ArrayList<>();
 
     @Override
     public void onEnable() {

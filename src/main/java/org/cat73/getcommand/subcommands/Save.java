@@ -18,7 +18,9 @@ public class Save implements ICommand {
             if (args.length == 0) {
                 args = new String[] { "chat" };
             }
-            int saveType = 0; // 1 chat, 2 file, 3 console, 4 command_block
+
+            // 1 chat, 2 file, 3 console, 4 command_block
+            int saveType = 0;
             // 判断是否有权执行 准备保存类型 过滤无效参数
             switch (args[0].toLowerCase()) {
                 case "chat":

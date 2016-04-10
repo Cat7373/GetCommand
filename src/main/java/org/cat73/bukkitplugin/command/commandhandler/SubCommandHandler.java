@@ -1,6 +1,6 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,7 +26,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     /** 帮助子命令的实例 */
     public final Help help;
     /** 子命令的简写缓存 */
-    private final HashMap<String, ICommand> aliaseCache = new CommandHashMap();
+    private final Map<String, ICommand> aliaseCache = new CommandHashMap();
 
     /**
      * 构造命令模块的实例

@@ -20,7 +20,7 @@ import org.cat73.bukkitplugin.command.commandhandler.ICommandHandler;
 public class Help implements ICommand {
     // TODO 私有化
     /** 每页输出多少条帮助 */
-    public int pageCommandCount = 5;
+    public int pageCommandCount = 8;
     /** 子命令所属的命令模块 */
     private final ICommandHandler commandHandler;
 

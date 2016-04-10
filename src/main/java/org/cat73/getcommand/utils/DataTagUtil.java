@@ -7,6 +7,11 @@ import org.bukkit.inventory.ItemStack;
 import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
 import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 
+/**
+ * DataTag 工具类
+ *
+ * @author cat73
+ */
 public class DataTagUtil {
     /**
      * 获取 Entity 的附加数据标签
@@ -40,7 +45,6 @@ public class DataTagUtil {
      */
     public static String getDataTag(final ItemStack item) throws Exception {
         // 获取 item 的 NBTTagCompound
-
         // NBTTagCompound NBTTagCompound = new NBTTagCompound();
         final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
         final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);

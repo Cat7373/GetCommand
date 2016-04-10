@@ -7,6 +7,11 @@ import org.bukkit.permissions.Permissible;
 import org.cat73.bukkitplugin.command.command.CommandInfo;
 import org.cat73.bukkitplugin.command.command.ICommand;
 
+/**
+ * 命令执行器接口
+ *
+ * @author cat73
+ */
 public interface ICommandHandler extends CommandExecutor {
     /**
      * 获取一个命令的信息
