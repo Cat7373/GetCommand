@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.IModule;
 import org.cat73.bukkitplugin.command.subcommands.Help;
-import org.cat73.bukkitplugin.utils.Log;
+import org.cat73.bukkitplugin.utils.PluginLog;
 
 /**
  * 命令的执行器
@@ -113,7 +113,7 @@ public class CommandHandler implements CommandExecutor, IModule {
 
         // 检查是否存在命令覆盖的情况
         if (this.commandList.containsKey(name)) {
-            Log.warn("%s 的命令管理器已存在的子命令 %s 被覆盖，建议检查代码", this.baseCommand, name);
+            PluginLog.warn("%s 的命令管理器已存在的子命令 %s 被覆盖，建议检查代码", this.baseCommand, name);
         }
         // 加入命令列表
         this.commandList.put(name, command);
@@ -123,7 +123,7 @@ public class CommandHandler implements CommandExecutor, IModule {
             // 检查是否存在简写覆盖的情况
             if (this.aliaseCache.containsKey(aliase)) {
                 final SubCommandInfo info2 = CommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
-                Log.warn("%s 的命令管理器的子命令 %s 的简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
+                PluginLog.warn("%s 的命令管理器的子命令 %s 的简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
             }
             // 加入简写列表
             this.aliaseCache.put(aliase, command);

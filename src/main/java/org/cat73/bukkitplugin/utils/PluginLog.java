@@ -8,7 +8,7 @@ import java.util.logging.Logger;
  *
  * @author Cat73
  */
-public class Log {
+public class PluginLog {
     /* 日志输出流 */
     private static Logger logger;
 
@@ -18,7 +18,7 @@ public class Log {
      * @param logger
      */
     public static void setLogger(final Logger logger) {
-        Log.logger = logger;
+        PluginLog.logger = logger;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     private static void log(final Level level, final String format, final Object... args) {
-        Log.logger.log(level, String.format(format, args));
+        PluginLog.logger.log(level, String.format(format, args));
     }
 
     /**
@@ -39,7 +39,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     public static void info(final String format, final Object... args) {
-        Log.log(Level.INFO, "[INFO]" + format, args);
+        PluginLog.log(Level.INFO, "[INFO]" + format, args);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     public static void warn(final String format, final Object... args) {
-        Log.warning(format, args);
+        PluginLog.warning(format, args);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     public static void warning(final String format, final Object... args) {
-        Log.log(Level.WARNING, "[WARN]" + format, args);
+        PluginLog.log(Level.WARNING, "[WARN]" + format, args);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     public static void error(final String format, final Object... args) {
-        Log.log(Level.SEVERE, "[ERROR]" + format, args);
+        PluginLog.log(Level.SEVERE, "[ERROR]" + format, args);
     }
 
     /**
@@ -79,7 +79,7 @@ public class Log {
      * @param args 格式化时使用的数据列表
      */
     public static void debug(final String format, final Object... args) {
-        Log.log(Level.INFO, "[DEBUG] " + format, args);
+        PluginLog.log(Level.INFO, "[DEBUG] " + format, args);
     }
 
     /**
@@ -94,6 +94,6 @@ public class Log {
         }
         message = message.substring(0, message.length() - 1);
 
-        Log.log(Level.INFO, "[DEBUG] " + message);
+        PluginLog.log(Level.INFO, "[DEBUG] " + message);
     }
 }

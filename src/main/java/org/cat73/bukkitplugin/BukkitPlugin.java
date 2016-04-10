@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.command.CommandHandler;
-import org.cat73.bukkitplugin.utils.Log;
+import org.cat73.bukkitplugin.utils.PluginLog;
 
 /**
  * 插件主类
@@ -34,8 +34,8 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // 初始化 Log
-        Log.setLogger(this.getLogger());
+        // 初始化 PluginLog
+        PluginLog.setLogger(this.getLogger());
 
         // 保存默认配置 // TODO 无 config.yml 时无法正常工作
         this.saveDefaultConfig();
