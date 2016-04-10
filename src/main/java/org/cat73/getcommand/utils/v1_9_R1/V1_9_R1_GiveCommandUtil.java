@@ -7,6 +7,7 @@ import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
 import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.IGiveCommandUtil;
+import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
 public class V1_9_R1_GiveCommandUtil implements IGiveCommandUtil {
     @Override

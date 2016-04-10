@@ -1,8 +1,8 @@
-package org.cat73.getcommand.utils.v1_9_R1;
+package org.cat73.getcommand.utils;
 
 import org.cat73.bukkitplugin.utils.reflect.ReflectUtil;
 
-class NBTTagCompoundToJsonUtil {
+public class NBTTagCompoundToJsonUtil {
     /**
      * 将 NBT 标签内的指定列表转为 JSON
      *
