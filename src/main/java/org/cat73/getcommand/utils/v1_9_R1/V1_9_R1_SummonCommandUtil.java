@@ -15,7 +15,7 @@ public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
         // 获取实体附加数据标签
         final String dataTag = this.getDataTag(entity);
         // 拼凑 summon 命令
-        final String command = CommandUtil.getSummonCommand(entityName, "~", "~", "~", dataTag);
+        final String command = CommandUtil.getSummonCommand(entityName, "~", "~1", "~", dataTag);
 
         // 返回结果
         return command;

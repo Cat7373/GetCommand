@@ -3,8 +3,8 @@ package org.cat73.getcommand.utils;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.cat73.getcommand.utils.v1_8_R2.V1_8_R2_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_8_R3.V1_8_R3_GiveCommandUtil;
+import org.cat73.getcommand.utils.v1_8_R3.V1_8_R3_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SummonCommandUtil;
@@ -25,7 +25,7 @@ public class GetCommandUtil {
 
     /**
      * 根据版本进行初始化
-     * 
+     *
      * @param version CraftBukkit 的版本
      * @return 成功返回true, 不支持的版本返回 false
      */
@@ -33,14 +33,10 @@ public class GetCommandUtil {
         switch (version) {
             // case "v1_8_R1":
             case "v1_8_R2":
-                GetCommandUtil.giveTool = new V1_8_R3_GiveCommandUtil();
-                GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
-                GetCommandUtil.setblockTool = new V1_8_R2_SetblockCommandUtil();
-                return true;
             case "v1_8_R3":
                 GetCommandUtil.giveTool = new V1_8_R3_GiveCommandUtil();
                 GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
-                GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
+                GetCommandUtil.setblockTool = new V1_8_R3_SetblockCommandUtil();
                 return true;
             case "v1_9_R1":
                 GetCommandUtil.giveTool = new V1_9_R1_GiveCommandUtil();

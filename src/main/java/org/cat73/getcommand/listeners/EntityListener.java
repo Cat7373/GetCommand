@@ -19,7 +19,7 @@ public class EntityListener implements Listener {
     @EventHandler
     /**
      * 实体攻击实体的触发
-     * 
+     *
      * @param event
      * @throws Exception
      */
