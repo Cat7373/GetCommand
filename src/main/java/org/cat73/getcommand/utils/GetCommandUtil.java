@@ -9,7 +9,6 @@ import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SummonCommandUtil;
 
-// TODO 部分名称获取错误，考虑绕过 Bukkit，直接通过反射读取 MC 内部存储的名称
 /**
  * 通过物品 / 实体 / 方块来获取指令的工具类
  *

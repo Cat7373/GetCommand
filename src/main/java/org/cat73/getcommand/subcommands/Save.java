@@ -23,43 +23,38 @@ public class Save implements ICommand {
                 args = new String[] { "chat" };
             }
 
-            // 保存类型 1 chat, 2 file, 3 console, 4 command_block
+            // 保存类型 0 什么也不做, 1 chat, 2 file, 3 console, 4 command_block
             int saveType = 0;
-            // 判断是否有权执行 准备保存类型 过滤无效参数
+            // 所需权限
+            String permission;
+            // 获取保存类型 获取所需权限名 过滤无效参数
             switch (args[0].toLowerCase()) {
                 case "chat":
-                    if (this.hasPermission(sender, "chat")) {
-                        saveType = 1;
-                        break;
-                    } else {
-                        return true;
-                    }
+                    saveType = 1;
+                    permission = "getcommand.save.chat";
+                    break;
                 case "f":
                 case "file":
-                    if (this.hasPermission(sender, "file")) {
-                        saveType = 2;
-                        break;
-                    } else {
-                        return true;
-                    }
+                    saveType = 2;
+                    permission = "getcommand.save.file";
+                    break;
                 case "c":
                 case "console":
-                    if (this.hasPermission(sender, "console")) {
-                        saveType = 3;
-                        break;
-                    } else {
-                        return true;
-                    }
+                    saveType = 3;
+                    permission = "getcommand.save.console";
+                    break;
                 case "cb":
                 case "command_block":
-                    if (this.hasPermission(sender, "command_block")) {
-                        saveType = 4;
-                        break;
-                    } else {
-                        return true;
-                    }
+                    saveType = 4;
+                    permission = "getcommand.save.command_block";
+                    break;
                 default:
                     return false;
+            }
+            // 判断是否有权限 无权限则什么也不做, 并将保存类型设置为什么也不做
+            if (!sender.hasPermission(permission)) {
+                sender.sendMessage(String.format("%s你需要 %s 权限才能执行这个命令", ChatColor.RED, permission));
+                saveType = 0;
             }
 
             // 执行具体命令
@@ -77,24 +72,12 @@ public class Save implements ICommand {
                     PlayersStatus.status.put(playerName, Status.Wait_CommandBlock);
                     sender.sendMessage(String.format("%s请在创造模式打一下一个空白的命令方块来保存命令", ChatColor.GREEN));
                     break;
+                case 0: // 什么也不做
+                    break;
             }
-
         } else {
             sender.sendMessage(String.format("%s当前没有已获取到的命令", ChatColor.RED));
         }
         return true;
-    }
-
-    private boolean hasPermission(final CommandSender sender, String permission) {
-        // 拼凑完整权限字符串
-        permission = String.format("getcommand.save.%s", permission);
-        // 判断是否有权限
-        if (sender.hasPermission(permission)) {
-            return true;
-        } else {
-            // 无权限则输出提示
-            sender.sendMessage(String.format("%s你需要 %s 权限才能执行这个命令", ChatColor.RED, permission));
-            return false;
-        }
     }
 }
