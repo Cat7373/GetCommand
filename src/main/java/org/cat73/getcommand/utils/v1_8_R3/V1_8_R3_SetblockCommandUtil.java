@@ -12,7 +12,7 @@ public class V1_8_R3_SetblockCommandUtil implements ISetblockCommandUtil {
     @Override
     public String getBlockSetBlockAtCommand(final Block block) throws Exception {
         // 获取方块名
-        final String TileName = this.getBlockName(block);
+        final String TileName = this.getNMSName(block);
         // 获取附加数据值
         final byte dataValue = block.getData();
         // 获取附加数据标签
@@ -24,7 +24,6 @@ public class V1_8_R3_SetblockCommandUtil implements ISetblockCommandUtil {
         return command;
     }
 
-    // TODO 获取到的是ID
     /**
      * 获取 Block 的 MinecraftKey
      *
@@ -32,7 +31,7 @@ public class V1_8_R3_SetblockCommandUtil implements ISetblockCommandUtil {
      * @return 目标方块的 MinecraftKey
      * @throws Exception
      */
-    private String getBlockName(final Block block) throws Exception {
+    private String getNMSName(final Block block) throws Exception {
         // Block NMSBlock = block.getNMSBlock();
         final Object NMSBlock = ReflectUtil.invokeMethod(block, "getNMSBlock");
 
