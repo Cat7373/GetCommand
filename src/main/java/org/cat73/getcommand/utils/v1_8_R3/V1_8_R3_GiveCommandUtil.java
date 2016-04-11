@@ -17,8 +17,8 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
         if (item.getType() != Material.AIR) {
             // 获取玩家名
             final String playerName = player.getName();
-            // 获取物品名 TODO 找找有没有更好的获取方案
-            final String itemName = item.getType().name().toLowerCase();
+            // 获取物品名
+            final String itemName = this.getNMSName(item);
             // 获取物品的附加数据值
             final int data = item.getDurability();
             // 获取物品的附加数据标签
@@ -31,6 +31,30 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
             return command;
         }
         return null;
+    }
+
+    /**
+     * 获取 Block 的 MinecraftKey
+     *
+     * @param block 目标方块
+     * @return 目标方块的 MinecraftKey
+     * @throws Exception
+     */
+    private String getNMSName(final ItemStack item) throws Exception {
+        // RegistryMaterials<MinecraftKey, Item> REGISTRY = Item.REGISTRY;
+        final Class<?> ItemClass = CraftBukkitReflectUtil.getMinecraftServerClass("Item");
+        final Object REGISTRY = ReflectUtil.getFieldValue(ItemClass, null, "REGISTRY");
+
+        // ItemStack NMSItemStack = item.handle;
+        final Object NMSItemStack = ReflectUtil.getFieldValue(item, "handle");
+
+        // Item NMSItem = NMSItemStack.getItem();
+        final Object NMSItem = ReflectUtil.invokeMethod(NMSItemStack, "getItem");
+
+        // MinecraftKey minecraftKey = REGISTRY.b(NMSItem);
+        final Object minecraftKey = ReflectUtil.invokeMethodLimitArgsTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSItem }, new Class<?>[] { Object.class });
+
+        return minecraftKey.toString();
     }
 
     /**

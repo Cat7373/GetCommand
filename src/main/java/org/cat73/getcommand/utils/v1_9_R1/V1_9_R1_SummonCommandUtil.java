@@ -25,7 +25,7 @@ public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
 
     /**
      * 获取 Entity 的 MinecraftKey
-     * 
+     *
      * @param entity 目标实体
      * @return 目标实体的 MinecraftKey
      * @throws Exception
