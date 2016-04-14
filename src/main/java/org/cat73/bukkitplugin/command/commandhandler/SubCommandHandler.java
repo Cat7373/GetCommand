@@ -88,6 +88,11 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     public void onDisable(final JavaPlugin javaPlugin) {}
 
     @Override
+    public String getName() {
+        return "CommandHandler";
+    }
+
+    @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String commandLabel, String[] args) {
         if (command.getName().equals(this.baseCommand)) {
             // 如果没有参数则执行帮助
