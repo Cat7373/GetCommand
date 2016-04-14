@@ -1,7 +1,6 @@
 package org.cat73.getcommand;
 
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.plugin.PluginManager;
 import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.command.commandhandler.SubCommandHandler;
@@ -48,7 +47,7 @@ public class GetCommand extends BukkitPlugin {
     public void onEnable() {
         // 准备 GetCommandUtil
         if (!GetCommandUtil.init(CraftBukkitReflectUtil.BUKKIT_VERSION)) {
-            Log.error("不支持的服务端版本，插件取消启动。");
+            this.logger.error("不支持的服务端版本，插件取消启动。");
             return;
         }
 
