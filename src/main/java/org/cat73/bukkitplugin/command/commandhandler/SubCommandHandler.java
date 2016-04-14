@@ -80,7 +80,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     }
 
     @Override
-    public void onEnable(final JavaPlugin javaPlugin) {
+    public void onEnable(final JavaPlugin javaPlugin) throws Exception {
         javaPlugin.getCommand(this.baseCommand).setExecutor(this);
     }
 
