@@ -17,7 +17,7 @@ public class BukkitPlugin extends JavaPlugin {
     protected final List<IModule> modules = new ArrayList<>();
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         // 初始化 PluginLog
         PluginLog.setLogger(this.getLogger());
 
@@ -27,13 +27,16 @@ public class BukkitPlugin extends JavaPlugin {
         } catch (final IllegalArgumentException e) {
             // 项目没有配置文件
         }
+    }
 
+    @Override
+    public void onEnable() {
         // 启动所有模块
-        for (final IModule manager : this.modules) {
+        for (final IModule module : this.modules) {
             try {
-                manager.onEnable(this);
+                module.onEnable(this);
             } catch (final Exception e) {
-                Log.error(String.format("启动模块 %s 时出现了一个未处理的错误", manager.getName()));
+                Log.error(String.format("启动模块 %s 时出现了一个未处理的错误", module.getName()));
                 e.printStackTrace();
             }
         }
@@ -42,12 +45,32 @@ public class BukkitPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // 停用所有模块
-        for (final IModule manager : this.modules) {
+        for (final IModule module : this.modules) {
             try {
-                manager.onDisable(this);
+                module.onDisable(this);
             } catch (final Exception e) {
-                Log.error(String.format("关闭模块 %s 时出现了一个未处理的错误", manager.getName()));
+                Log.error(String.format("关闭模块 %s 时出现了一个未处理的错误", module.getName()));
                 e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 重载配置后重载所有实现了 IReloadModule 接口的模块
+     */
+    public void onReload() {
+        // 重载配置
+        this.reloadConfig();
+        // 重载所有模块
+        for (final IModule module : this.modules) {
+            if (module instanceof IReloadModule) {
+                final IReloadModule reloadModule = (IReloadModule) module;
+                try {
+                    reloadModule.onReload(this);
+                } catch (final Exception e) {
+                    Log.error(String.format("重载模块 %s 时出现了一个未处理的错误", reloadModule.getName()));
+                    e.printStackTrace();
+                }
             }
         }
     }

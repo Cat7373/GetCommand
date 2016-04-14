@@ -16,10 +16,15 @@ import org.cat73.getcommand.utils.GetCommandUtil;
 
 // TODO 多语言
 public class GetCommand extends BukkitPlugin {
-    public GetCommand() {
+    @Override
+    public void onLoad() {
+        // 调用父类的 onLoad
+        super.onLoad();
+
         // 添加命令模块
         final SubCommandHandler commandHandler = new SubCommandHandler("getcommand");
         this.modules.add(commandHandler);
+
         // 注册命令
         commandHandler.registerCommand(new Item());
         commandHandler.registerCommand(new Entity());
