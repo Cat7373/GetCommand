@@ -39,7 +39,7 @@ public class PluginLogger {
      * @param args 格式化时使用的数据列表
      */
     public void info(final String format, final Object... args) {
-        this.log(Level.INFO, "[INFO]" + format, args);
+        this.log(Level.INFO, format, args);
     }
 
     /**
@@ -59,7 +59,7 @@ public class PluginLogger {
      * @param args 格式化时使用的数据列表
      */
     public void warning(final String format, final Object... args) {
-        this.log(Level.WARNING, "[WARN]" + format, args);
+        this.log(Level.WARNING, format, args);
     }
 
     /**
@@ -69,7 +69,7 @@ public class PluginLogger {
      * @param args 格式化时使用的数据列表
      */
     public void error(final String format, final Object... args) {
-        this.log(Level.SEVERE, "[ERROR]" + format, args);
+        this.log(Level.SEVERE, format, args);
     }
 
     /**

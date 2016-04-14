@@ -1,6 +1,5 @@
 package org.cat73.getcommand;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.PluginManager;
 import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.command.commandhandler.SubCommandHandler;
@@ -22,12 +21,9 @@ public class GetCommand extends BukkitPlugin {
         // 调用父类的 onLoad
         super.onLoad();
 
-        // 读取配置
-        final ConfigurationSection config = this.getConfig();
-
         // 初始化 Units
         // 初始化 i18n
-        this.i18n.setLocale(this.getLocale(config));
+        this.i18n.setLocale(this.getLocale());
         I18nUtil.setI18n(this.i18n);
 
         // 添加模块
@@ -66,7 +62,7 @@ public class GetCommand extends BukkitPlugin {
         super.onReload();
 
         // 重新加载 i18n
-        this.i18n.setLocale(this.getLocale(this.getConfig()));
+        this.i18n.setLocale(this.getLocale());
     }
 
     /**
@@ -74,12 +70,12 @@ public class GetCommand extends BukkitPlugin {
      *
      * @param config 配置文件
      */
-    private Locale getLocale(final ConfigurationSection config) {
-        final String lang = config.getString("lang");
+    private Locale getLocale() {
+        final String lang = this.config.getString("lang");
         final String path = String.format("lang_%s", lang);
 
         try {
-            return new Locale(config, path);
+            return new Locale(this.config, path);
         } catch (final ClassCastException e) {
             this.logger.error("Failed to load the i18n, %s is not a Map", path);
             return new Locale();

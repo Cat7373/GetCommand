@@ -3,6 +3,7 @@ package org.cat73.bukkitplugin;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.utils.PluginLogger;
 import org.cat73.bukkitplugin.utils.i18n.I18n;
@@ -18,6 +19,7 @@ public class BukkitPlugin extends JavaPlugin {
     protected final List<IModule> modules = new ArrayList<>();
     public PluginLogger logger;
     public I18n i18n;
+    public ConfigurationSection config;
 
     @Override
     public void onLoad() {
@@ -33,6 +35,7 @@ public class BukkitPlugin extends JavaPlugin {
         } catch (final IllegalArgumentException e) {
             // 项目没有配置文件
         }
+        this.config = this.getConfig();
     }
 
     @Override
