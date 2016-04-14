@@ -1,7 +1,5 @@
 package org.cat73.bukkitplugin;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 /**
  * 支持重载的模块接口
  *
@@ -14,5 +12,5 @@ public interface IReloadModule extends IModule {
      * @param javaPlugin 插件主类
      * @throws Exception
      */
-    void onReload(JavaPlugin javaPlugin) throws Exception;
+    void onReload(BukkitPlugin javaPlugin) throws Exception;
 }

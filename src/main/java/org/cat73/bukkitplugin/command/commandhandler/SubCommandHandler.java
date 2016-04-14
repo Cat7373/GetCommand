@@ -6,12 +6,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.IModule;
 import org.cat73.bukkitplugin.command.command.CommandInfo;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.bukkitplugin.command.commands.Help;
-import org.cat73.bukkitplugin.utils.PluginLog;
+import org.cat73.bukkitplugin.utils.PluginLogger;
 
 // TODO 实现 TabExecutor
 /**
@@ -27,13 +27,16 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     public final Help help;
     /** 子命令的简写缓存 */
     private final Map<String, ICommand> aliaseCache = new CommandHashMap();
+    /** 插件主类 */
+    private final PluginLogger logger;
 
     /**
      * 构造命令模块的实例
      *
      * @param baseCommand 主命令名
      */
-    public SubCommandHandler(final String baseCommand) {
+    public SubCommandHandler(final BukkitPlugin plugin, final String baseCommand) {
+        this.logger = plugin.logger;
         this.baseCommand = baseCommand;
         this.help = new Help(this);
         this.registerCommand(this.help);
@@ -47,7 +50,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
 
         // 检查是否存在命令覆盖的情况
         if (this.getCommand(name) != null) {
-            PluginLog.warn("%s 的命令管理器已存在的子命令或简写 %s 被覆盖，建议检查代码", this.baseCommand, name);
+            this.logger.warn("%s 的命令管理器已存在的子命令或简写 %s 被覆盖，建议检查代码", this.baseCommand, name);
         }
         // 加入命令列表
         super.registerCommand(command);
@@ -57,7 +60,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
             // 检查是否存在简写覆盖的情况
             if (this.getCommand(aliase) != null) {
                 final CommandInfo info2 = ICommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
-                PluginLog.warn("%s 的命令管理器的子命令 %s 的子命令或简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
+                this.logger.warn("%s 的命令管理器的子命令 %s 的子命令或简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
             }
             // 加入简写列表
             this.aliaseCache.put(aliase, command);
@@ -80,12 +83,12 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     }
 
     @Override
-    public void onEnable(final JavaPlugin javaPlugin) throws Exception {
+    public void onEnable(final BukkitPlugin javaPlugin) throws Exception {
         javaPlugin.getCommand(this.baseCommand).setExecutor(this);
     }
 
     @Override
-    public void onDisable(final JavaPlugin javaPlugin) {}
+    public void onDisable(final BukkitPlugin javaPlugin) {}
 
     @Override
     public String getName() {

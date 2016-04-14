@@ -1,7 +1,5 @@
 package org.cat73.bukkitplugin;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 /**
  * 模块接口
  *
@@ -14,7 +12,7 @@ public interface IModule {
      * @param javaPlugin 插件主类
      * @throws Exception
      */
-    void onEnable(JavaPlugin javaPlugin) throws Exception;
+    void onEnable(BukkitPlugin javaPlugin) throws Exception;
 
     /**
      * 插件禁用时的触发
@@ -22,7 +20,7 @@ public interface IModule {
      * @param javaPlugin 插件主类
      * @throws Exception
      */
-    void onDisable(JavaPlugin javaPlugin) throws Exception;
+    void onDisable(BukkitPlugin javaPlugin) throws Exception;
 
     /**
      * 返回模块的名字
