@@ -1,5 +1,7 @@
 /*
-!.gitignore
 !/src/
 !README.md
 !LICENSE
+!.gitignore
+!pom.xml
+

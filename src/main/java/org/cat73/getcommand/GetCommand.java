@@ -43,7 +43,7 @@ public class GetCommand extends BukkitPlugin {
     public void onEnable() {
         // 准备 GetCommandUtil
         if (!GetCommandUtil.init(CraftBukkitReflectUtil.BUKKIT_VERSION)) {
-            this.logger.error("不支持的服务端版本，插件取消启动。");
+            this.logger.error("不支持的服务端版本 %s，插件取消启动。", CraftBukkitReflectUtil.BUKKIT_VERSION);
             return;
         }
 

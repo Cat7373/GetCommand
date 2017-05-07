@@ -8,6 +8,7 @@ import org.cat73.getcommand.utils.v1_8_R3.V1_8_R3_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_9_R1.V1_9_R1_SummonCommandUtil;
+import org.cat73.getcommand.utils.v_1_11_R1.V1_11_R1_SummonCommandUtil;
 
 /**
  * 通过物品 / 实体 / 方块来获取指令的工具类
@@ -38,8 +39,15 @@ public class GetCommandUtil {
                 GetCommandUtil.setblockTool = new V1_8_R3_SetblockCommandUtil();
                 return true;
             case "v1_9_R1":
+            case "v1_9_R2":
+            case "v1_10_R1":
                 GetCommandUtil.giveTool = new V1_9_R1_GiveCommandUtil();
                 GetCommandUtil.summonTool = new V1_9_R1_SummonCommandUtil();
+                GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
+                return true;
+            case "v1_11_R1": // 实体炸
+                GetCommandUtil.giveTool = new V1_9_R1_GiveCommandUtil();
+                GetCommandUtil.summonTool = new V1_11_R1_SummonCommandUtil();
                 GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
                 return true;
             default:
@@ -59,10 +67,10 @@ public class GetCommandUtil {
     }
 
     /**
-     * 通过方块来获取 setblock 命令
+     * 通过实体获取 summon 命令
      *
-     * @param block 目标方块
-     * @return 对应的 setblock 命令
+     * @param entity 目标实体
+     * @return 对应的 summon 命令
      * @throws Exception
      */
     public static String getEntitySummonCommand(final Entity entity) throws Exception {
@@ -70,10 +78,10 @@ public class GetCommandUtil {
     }
 
     /**
-     * 通过实体获取 summon 命令
+     * 通过方块来获取 setblock 命令
      *
-     * @param entity 目标实体
-     * @return 对应的 summon 命令
+     * @param block 目标方块
+     * @return 对应的 setblock 命令
      * @throws Exception
      */
     public static String getBlockSetBlockAtCommand(final Block block) throws Exception {

@@ -46,19 +46,23 @@ public class Locale {
         }
 
         // 读出目标 Map
-        Map<String, Object> map;
+        Map<String, Object> map = null;
         if (mapPath == null || mapPath.trim().isEmpty()) {
             map = config.getValues(true);
         } else {
             final ConfigurationSection configSection = (ConfigurationSection) config.get(mapPath.trim());
-            map = configSection.getValues(true);
+            if (configSection != null) {
+                map = configSection.getValues(true);
+            }
         }
 
-        // 将所有翻译添加到翻译列表中
-        for (final String key : map.keySet()) {
-            final Object value = map.get(key);
-            if (value instanceof String) {
-                this.translates.put(key, (String) value);
+        if (map != null) {
+            // 将所有翻译添加到翻译列表中
+            for (final String key : map.keySet()) {
+                final Object value = map.get(key);
+                if (value instanceof String) {
+                    this.translates.put(key, (String) value);
+                }
             }
         }
     }
