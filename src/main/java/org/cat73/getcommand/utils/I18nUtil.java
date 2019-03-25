@@ -15,11 +15,11 @@ public class I18nUtil {
      *
      * @param i18n
      */
-    public static void setI18n(final I18n i18n) {
+    public static void setI18n(I18n i18n) {
         I18nUtil.i18n = i18n;
     }
 
-    public static String format(final String key, final Object... args) {
+    public static String format(String key, Object... args) {
         return I18nUtil.i18n.format(key, args);
     }
 }

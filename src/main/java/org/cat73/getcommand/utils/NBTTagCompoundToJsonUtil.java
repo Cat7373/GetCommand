@@ -11,7 +11,7 @@ public class NBTTagCompoundToJsonUtil {
      * @return NBT 标签内的 tag 转为 JSON 后的结果
      * @throws Exception
      */
-    public static String NBTTagCompoundToJson(Object NBTTagCompound, final String tagName) throws Exception {
+    public static String NBTTagCompoundToJson(Object NBTTagCompound, String tagName) throws Exception {
         if (tagName != null && !tagName.isEmpty()) {
             NBTTagCompound = ReflectUtil.invokeMethod(NBTTagCompound, "getCompound", tagName);
         }

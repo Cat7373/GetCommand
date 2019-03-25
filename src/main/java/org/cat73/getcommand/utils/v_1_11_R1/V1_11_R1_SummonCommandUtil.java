@@ -7,20 +7,15 @@ import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.ISummonCommandUtil;
 import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
-import java.util.Map;
-
 public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
     @Override
-    public String getEntitySummonCommand(final Entity entity) throws Exception {
+    public String getEntitySummonCommand(Entity entity) throws Exception {
         // 获取实体名
-        final String entityName = this.getNMSName(entity);
+        String entityName = this.getNMSName(entity);
         // 获取实体附加数据标签
-        final String dataTag = this.getDataTag(entity);
-        // 拼凑 summon 命令
-        final String command = CommandUtil.getSummonCommand(entityName, "~", "~1", "~", dataTag);
-
-        // 返回结果
-        return command;
+        String dataTag = this.getDataTag(entity);
+        // 拼凑 summon 命令并返回结果
+        return CommandUtil.getSummonCommand(entityName, "~", "~1", "~", dataTag);
     }
 
     /**
@@ -30,14 +25,14 @@ public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
      * @return 目标实体的 MinecraftKey
      * @throws Exception
      */
-    private String getNMSName(final Entity entity) throws Exception {
+    private String getNMSName(Entity entity) throws Exception {
         // RegistryMaterials<MinecraftKey, Class<? extends Entity>> registry = EntityTypes.b;
-        final Class<?> EntityTypesClass = CraftBukkitReflectUtil.getMinecraftServerClass("EntityTypes");
-        final Class<?> RegistryMaterialsClass = CraftBukkitReflectUtil.getMinecraftServerClass("RegistryMaterials");
-        final Object registry = ReflectUtil.getFieldValue(EntityTypesClass, null, "b");
+        Class<?> EntityTypesClass = CraftBukkitReflectUtil.minecraftServerClass("EntityTypes");
+        Class<?> RegistryMaterialsClass = CraftBukkitReflectUtil.minecraftServerClass("RegistryMaterials");
+        Object registry = ReflectUtil.getFieldValue(EntityTypesClass, null, "b");
 
         // Entity NMSEntity = entity.entity
-        final Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
+        Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
 
         // return registry.b(handle.getClass());
         return ReflectUtil.invokeMethodLimitArgsTypes(RegistryMaterialsClass, registry, "b", new Object[] { NMSEntity.getClass() }, new Class<?>[] { Object.class }).toString();
@@ -50,14 +45,14 @@ public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
      * @return 目标实体的附加数据标签
      * @throws Exception
      */
-    private String getDataTag(final Entity entity) throws Exception {
+    private String getDataTag(Entity entity) throws Exception {
         // 获取 entity 的 NBTTagCompound
         // NBTTagCompound NBTTagCompound = new NBTTagCompound();
-        final Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.getMinecraftServerClass("NBTTagCompound");
-        final Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
+        Class<?> NBTTagCompoundClass = CraftBukkitReflectUtil.minecraftServerClass("NBTTagCompound");
+        Object NBTTagCompound = ReflectUtil.invokeConstructor(NBTTagCompoundClass);
 
         // Entity NMSEntity = entity.entity
-        final Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
+        Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
         // NMSEntity.b(NBTTagCompound);
         ReflectUtil.invokeMethod(NMSEntity, "b", NBTTagCompound);
 

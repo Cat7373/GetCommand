@@ -18,7 +18,7 @@ public class CraftBukkitReflectUtil extends ReflectUtil {
      * @return 对应类的 Class
      * @throws Exception
      */
-    public static Class<?> getCraftBukkitClass(String path) throws Exception {
+    public static Class<?> craftBukkitClass(String path) throws Exception {
         // 拼凑完整 Path
         path = String.format("org.bukkit.craftbukkit.%s.%s", CraftBukkitReflectUtil.BUKKIT_VERSION, path);
         // 获取并返回 Class
@@ -32,7 +32,7 @@ public class CraftBukkitReflectUtil extends ReflectUtil {
      * @return 对应类的 Class
      * @throws Exception
      */
-    public static Class<?> getMinecraftServerClass(String path) throws Exception {
+    public static Class<?> minecraftServerClass(String path) throws Exception {
         // 拼凑完整 Path
         path = String.format("net.minecraft.server.%s.%s", CraftBukkitReflectUtil.BUKKIT_VERSION, path);
         // 获取并返回 Class

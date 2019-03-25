@@ -1,11 +1,11 @@
 package org.cat73.bukkitplugin.utils.i18n;
 
+import org.bukkit.configuration.ConfigurationSection;
+
 import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.Map;
 import java.util.Set;
-
-import org.bukkit.configuration.ConfigurationSection;
 
 /**
  * 本地化语言类
@@ -27,7 +27,7 @@ public class Locale {
      *
      * @param config 一个配置文件
      */
-    public Locale(final ConfigurationSection config) {
+    public Locale(ConfigurationSection config) {
         this(config, null);
     }
 
@@ -39,7 +39,7 @@ public class Locale {
      * @param mapPath 翻译内容所在的路径, 必须为一个 Map
      * @throws ClassCastException 如果 mapPath 指向的配置不是一个 Map
      */
-    public Locale(final ConfigurationSection config, final String mapPath) throws ClassCastException {
+    public Locale(ConfigurationSection config, String mapPath) throws ClassCastException {
         // 如果没有配置文件则直接返回
         if (config == null) {
             return;
@@ -50,7 +50,7 @@ public class Locale {
         if (mapPath == null || mapPath.trim().isEmpty()) {
             map = config.getValues(true);
         } else {
-            final ConfigurationSection configSection = (ConfigurationSection) config.get(mapPath.trim());
+            ConfigurationSection configSection = (ConfigurationSection) config.get(mapPath.trim());
             if (configSection != null) {
                 map = configSection.getValues(true);
             }
@@ -58,8 +58,8 @@ public class Locale {
 
         if (map != null) {
             // 将所有翻译添加到翻译列表中
-            for (final String key : map.keySet()) {
-                final Object value = map.get(key);
+            for (String key : map.keySet()) {
+                Object value = map.get(key);
                 if (value instanceof String) {
                     this.translates.put(key, (String) value);
                 }
@@ -74,7 +74,7 @@ public class Locale {
      * @param value 如果为 null 则删除对应 key<br>
      *        否则则添加新的翻译，如翻译已存在，则会覆盖旧的翻译
      */
-    public void setTranslate(final String key, final String value) {
+    public void setTranslate(String key, String value) {
         if (value == null) {
             this.translates.remove(key);
         } else {
@@ -88,7 +88,7 @@ public class Locale {
      * @param key 翻译的名称
      * @return 对应的翻译内容
      */
-    public String getTranslate(final String key) {
+    public String getTranslate(String key) {
         return this.translates.get(key);
     }
 
@@ -108,13 +108,13 @@ public class Locale {
      * @param args 格式化时使用的参数列表
      * @return 格式化后的翻译
      */
-    public String formatMessage(final String key, final Object... args) {
+    public String formatMessage(String key, Object... args) {
         String translate = this.getTranslate(key);
         translate = translate == null ? key : translate;
 
         try {
             return String.format(translate, args);
-        } catch (final IllegalFormatException e) {
+        } catch (IllegalFormatException e) {
             e.printStackTrace();
             return String.format("Format error: %s", translate);
         }

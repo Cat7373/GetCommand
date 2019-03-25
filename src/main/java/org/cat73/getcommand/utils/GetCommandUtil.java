@@ -29,7 +29,7 @@ public class GetCommandUtil {
      * @param version CraftBukkit 的版本
      * @return 成功返回true, 不支持的版本返回 false
      */
-    public static boolean init(final String version) {
+    public static boolean init(String version) {
         switch (version) {
             // case "v1_8_R1":
             case "v1_8_R2":
@@ -62,7 +62,7 @@ public class GetCommandUtil {
      * @return 如果手上有物品，则返回对应的 give 命令，如果没有则返回 null
      * @throws Exception
      */
-    public static String getPlayerHandItemGiveCommand(final Player player) throws Exception {
+    public static String getPlayerHandItemGiveCommand(Player player) throws Exception {
         return GetCommandUtil.giveTool.getPlayerHandItemGiveCommand(player);
     }
 
@@ -73,7 +73,7 @@ public class GetCommandUtil {
      * @return 对应的 summon 命令
      * @throws Exception
      */
-    public static String getEntitySummonCommand(final Entity entity) throws Exception {
+    public static String getEntitySummonCommand(Entity entity) throws Exception {
         return GetCommandUtil.summonTool.getEntitySummonCommand(entity);
     }
 
@@ -84,7 +84,7 @@ public class GetCommandUtil {
      * @return 对应的 setblock 命令
      * @throws Exception
      */
-    public static String getBlockSetBlockAtCommand(final Block block) throws Exception {
+    public static String getBlockSetBlockAtCommand(Block block) throws Exception {
         return GetCommandUtil.setblockTool.getBlockSetBlockAtCommand(block);
     }
 }

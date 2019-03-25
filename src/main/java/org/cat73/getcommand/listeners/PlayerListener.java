@@ -21,14 +21,14 @@ import org.cat73.getcommand.utils.GetCommandUtil;
  * @author cat73
  */
 public class PlayerListener implements Listener {
-    @EventHandler
     /**
      * 玩家打方块的触发
      *
      * @param event
      * @throws Exception
      */
-    public void onEntityDamageByEntityEvent(final PlayerInteractEvent event) throws Exception {
+    @EventHandler
+    public void onEntityDamageByEntityEvent(PlayerInteractEvent event) throws Exception {
         if (event.useItemInHand() == Result.DENY) {
             return;
         }
@@ -36,19 +36,19 @@ public class PlayerListener implements Listener {
         // 如果是左键点击
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             // 获取玩家对象
-            final Player player = event.getPlayer();
+            Player player = event.getPlayer();
             // 获取玩家名
-            final String playerName = player.getName();
+            String playerName = player.getName();
             // 获取玩家当前的状态
-            final Status status = PlayersStatus.status.get(playerName);
+            Status status = PlayersStatus.status.get(playerName);
             if (status == Status.Wait_Block) {
                 // 如果玩家正在等待方块
                 // 取消这次操作
                 event.setCancelled(true);
 
                 // 准备数据
-                final Block block = event.getClickedBlock();
-                final String command = GetCommandUtil.getBlockSetBlockAtCommand(block);
+                Block block = event.getClickedBlock();
+                String command = GetCommandUtil.getBlockSetBlockAtCommand(block);
 
                 // 设置状态
                 PlayersStatus.commands.put(playerName, command);
@@ -59,7 +59,7 @@ public class PlayerListener implements Listener {
             } else if (status == Status.Wait_CommandBlock) {
                 // 如果玩家正在等待方块命令方块
                 // 获取被点击的方块
-                final Block block = event.getClickedBlock();
+                Block block = event.getClickedBlock();
 
                 // 判断是否为命令方块
                 if (block.getType() == Material.COMMAND) {
@@ -69,7 +69,7 @@ public class PlayerListener implements Listener {
                     // 判断玩家是否在创造模式
                     if (player.getGameMode() == GameMode.CREATIVE) {
                         // 获取命令方块的附加数据
-                        final CommandBlock commandBlock = (CommandBlock) block.getState();
+                        CommandBlock commandBlock = (CommandBlock) block.getState();
 
                         // 判断目标命令方块中的命令是否为空
                         if (commandBlock.getCommand().trim().isEmpty()) {

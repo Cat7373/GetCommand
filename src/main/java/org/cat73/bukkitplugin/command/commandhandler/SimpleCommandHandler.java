@@ -1,11 +1,11 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
+import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.command.ICommand;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.cat73.bukkitplugin.command.command.CommandInfo;
-import org.cat73.bukkitplugin.command.command.ICommand;
 
 /**
  * 一个提供了简单的命令管理的命令执行器
@@ -23,17 +23,17 @@ public abstract class SimpleCommandHandler implements ICommandHandler {
         private static final long serialVersionUID = 497789192032897236L;
 
         @Override
-        public ICommand put(final String key, final ICommand value) {
+        public ICommand put(String key, ICommand value) {
             return super.put(key.toLowerCase(), value);
         }
 
         @Override
-        public ICommand get(final Object key) {
+        public ICommand get(Object key) {
             return super.get(((String) key).toLowerCase());
         }
 
         @Override
-        public boolean containsKey(final Object key) {
+        public boolean containsKey(Object key) {
             return super.containsKey(((String) key).toLowerCase());
         }
     }
@@ -42,10 +42,10 @@ public abstract class SimpleCommandHandler implements ICommandHandler {
     private final Map<String, ICommand> commandList = new CommandHashMap();
 
     @Override
-    public void registerCommand(final ICommand command) {
+    public void registerCommand(ICommand command) {
         // 获取命令的信息
-        final CommandInfo info = ICommandHandler.getCommandInfo(command);
-        final String name = info.name();
+        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        String name = info.name();
 
         // 加入命令列表
         this.commandList.put(name, command);
@@ -57,7 +57,7 @@ public abstract class SimpleCommandHandler implements ICommandHandler {
     }
 
     @Override
-    public ICommand getCommand(final String name) {
+    public ICommand getCommand(String name) {
         return this.commandList.get(name);
     }
 }

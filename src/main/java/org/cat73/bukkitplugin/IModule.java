@@ -10,7 +10,7 @@ public interface IModule {
      * 插件启用时的触发
      *
      * @param javaPlugin 插件主类
-     * @throws Exception
+     * @throws Exception 如果启用过程中出现了任何异常
      */
     void onEnable(BukkitPlugin javaPlugin) throws Exception;
 
@@ -18,7 +18,7 @@ public interface IModule {
      * 插件禁用时的触发
      *
      * @param javaPlugin 插件主类
-     * @throws Exception
+     * @throws Exception 如果禁用过程中出现了任何异常
      */
     void onDisable(BukkitPlugin javaPlugin) throws Exception;
 

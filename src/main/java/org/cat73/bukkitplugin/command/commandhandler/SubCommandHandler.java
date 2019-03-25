@@ -1,7 +1,5 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,6 +10,8 @@ import org.cat73.bukkitplugin.command.command.CommandInfo;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.bukkitplugin.command.commands.Help;
 import org.cat73.bukkitplugin.utils.PluginLogger;
+
+import java.util.Map;
 
 // TODO 实现 TabExecutor
 /**
@@ -35,7 +35,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
      *
      * @param baseCommand 主命令名
      */
-    public SubCommandHandler(final BukkitPlugin plugin, final String baseCommand) {
+    public SubCommandHandler(BukkitPlugin plugin, String baseCommand) {
         this.logger = plugin.logger;
         this.baseCommand = baseCommand;
         this.help = new Help(this);
@@ -43,10 +43,10 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     }
 
     @Override
-    public void registerCommand(final ICommand command) {
+    public void registerCommand(ICommand command) {
         // 获取子命令的信息
-        final CommandInfo info = ICommandHandler.getCommandInfo(command);
-        final String name = info.name();
+        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        String name = info.name();
 
         // 检查是否存在命令覆盖的情况
         if (this.getCommand(name) != null) {
@@ -56,10 +56,10 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
         super.registerCommand(command);
 
         // 保存所有简写
-        for (final String aliase : info.aliases()) {
+        for (String aliase : info.aliases()) {
             // 检查是否存在简写覆盖的情况
             if (this.getCommand(aliase) != null) {
-                final CommandInfo info2 = ICommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
+                CommandInfo info2 = ICommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
                 this.logger.warn("%s 的命令管理器的子命令 %s 的子命令或简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
             }
             // 加入简写列表
@@ -71,24 +71,24 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     /**
      * 通过名称或简写来获取一个命令的执行器
      */
-    public ICommand getCommand(final String name) {
-        final ICommand command = super.getCommand(name);
+    public ICommand getCommand(String name) {
+        ICommand command = super.getCommand(name);
         return command != null ? command : this.aliaseCache.get(name);
     }
 
     @Override
-    public String getUsage(final ICommand command) {
-        final CommandInfo info = ICommandHandler.getCommandInfo(command);
+    public String getUsage(ICommand command) {
+        CommandInfo info = ICommandHandler.getCommandInfo(command);
         return String.format("/%s %s %s", this.baseCommand, info.name(), info.usage());
     }
 
     @Override
-    public void onEnable(final BukkitPlugin javaPlugin) throws Exception {
+    public void onEnable(BukkitPlugin javaPlugin) {
         javaPlugin.getCommand(this.baseCommand).setExecutor(this);
     }
 
     @Override
-    public void onDisable(final BukkitPlugin javaPlugin) {}
+    public void onDisable(BukkitPlugin javaPlugin) {}
 
     @Override
     public String getName() {
@@ -96,7 +96,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, final Command command, final String commandLabel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (command.getName().equals(this.baseCommand)) {
             // 如果没有参数则执行帮助
             if (args == null || args.length < 1) {
@@ -112,7 +112,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
             }
 
             // 判断有无权限执行这个子命令
-            final CommandInfo info = ICommandHandler.getCommandInfo(commandExecer);
+            CommandInfo info = ICommandHandler.getCommandInfo(commandExecer);
             if (!ICommandHandler.hasPermission(commandExecer, sender)) {
                 sender.sendMessage(String.format("%s%s你需要 %s 权限才能执行 %s 命令.", ChatColor.RED, ChatColor.BOLD, info.permission(), info.name()));
                 return true;
@@ -125,7 +125,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
             }
 
             // 修剪参数 (删除子命令名)
-            final String[] tmp = new String[args.length - 1];
+            String[] tmp = new String[args.length - 1];
             for (int i = 1; i < args.length; i++) {
                 tmp[i - 1] = args[i];
             }
@@ -136,7 +136,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
                     // 如果返回 false 则打印该子命令的帮助
                     this.help.sendCommandHelp(sender, commandExecer);
                 }
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 // 如果出现任何未捕获的异常则打印提示
                 sender.sendMessage(String.format("%s%s执行命令的过程中出现了一个未处理的错误.", ChatColor.RED, ChatColor.BOLD));
                 e.printStackTrace();

@@ -16,7 +16,7 @@ public class CommandUtil {
      * @param dataTag 附加数据标签
      * @return 格式化的 give 指令
      */
-    public static String getGiveCommand(final String playerName, final String itemName, final int amount, final int data, final String dataTag) {
+    public static String getGiveCommand(String playerName, String itemName, int amount, int data, String dataTag) {
         return String.format("/give %s %s %d %d %s", playerName, itemName, amount, data, dataTag);
     }
 
@@ -30,7 +30,7 @@ public class CommandUtil {
      * @param dataTag 附加数据标签
      * @return 格式化的 summon 指令
      */
-    public static String getSummonCommand(final String entityName, final String x, final String y, final String z, final String dataTag) {
+    public static String getSummonCommand(String entityName, String x, String y, String z, String dataTag) {
         return String.format("/summon %s %s %s %s %s", entityName, x, y, z, dataTag);
     }
 
@@ -46,7 +46,7 @@ public class CommandUtil {
      * @param dataTag 附加数据标签
      * @return 格式化的 setblock 指令
      */
-    public static String getSetblockCommand(final String x, final String y, final String z, final String TileName, final byte dataValue, final String oldBlockHandling, final String dataTag) {
+    public static String getSetblockCommand(String x, String y, String z, String TileName, byte dataValue, String oldBlockHandling, String dataTag) {
         return String.format("/setblock %s %s %s %s %d %s %s", x, y, z, TileName, dataValue, oldBlockHandling, dataTag);
     }
 }

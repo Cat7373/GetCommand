@@ -10,9 +10,9 @@ import org.cat73.getcommand.status.Status;
 @CommandInfo(name = "Cancel", permission = "getcommand.cancel", playerOnly = true, description = "取消当前操作", aliases = "c")
 public class Cancel implements ICommand {
     @Override
-    public boolean handle(final CommandSender sender, final String[] args) throws Exception {
+    public boolean handle(CommandSender sender, String[] args) {
         // 获取玩家名
-        final String playerName = sender.getName();
+        String playerName = sender.getName();
         // 设置玩家状态为完成
         PlayersStatus.status.put(playerName, Status.Finish);
 

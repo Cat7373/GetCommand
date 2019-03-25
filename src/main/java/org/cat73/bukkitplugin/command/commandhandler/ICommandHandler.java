@@ -1,11 +1,11 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
-import java.util.Collection;
-
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permissible;
 import org.cat73.bukkitplugin.command.command.CommandInfo;
 import org.cat73.bukkitplugin.command.command.ICommand;
+
+import java.util.Collection;
 
 /**
  * 命令执行器接口
@@ -19,7 +19,7 @@ public interface ICommandHandler extends CommandExecutor {
      * @param command 命令的执行器
      * @return 该命令的信息
      */
-    public static CommandInfo getCommandInfo(final ICommand command) {
+    static CommandInfo getCommandInfo(ICommand command) {
         return command.getClass().getAnnotation(CommandInfo.class);
     }
 
@@ -30,9 +30,9 @@ public interface ICommandHandler extends CommandExecutor {
      * @param sender 执行者
      * @return 该执行者有无权限执行这条命令
      */
-    public static boolean hasPermission(final ICommand command, final Permissible sender) {
+    static boolean hasPermission(ICommand command, Permissible sender) {
         // 获取命令的信息
-        final CommandInfo info = ICommandHandler.getCommandInfo(command);
+        CommandInfo info = ICommandHandler.getCommandInfo(command);
 
         // 判断有无权限执行这个命令
         if (info.permission().isEmpty()) {
@@ -47,7 +47,7 @@ public interface ICommandHandler extends CommandExecutor {
      *
      * @param command 命令的执行器
      */
-    void registerCommand(final ICommand command);
+    void registerCommand(ICommand command);
 
     /**
      * 获取命令列表
@@ -62,7 +62,7 @@ public interface ICommandHandler extends CommandExecutor {
      * @param name 命令的名称
      * @return 命令的执行器, 如果未找到则返回 null
      */
-    ICommand getCommand(final String name);
+    ICommand getCommand(String name);
 
     /**
      * 获取某个命令的使用方法
@@ -70,5 +70,5 @@ public interface ICommandHandler extends CommandExecutor {
      * @param command 命令的执行器
      * @return 目标命令的使用方法
      */
-    String getUsage(final ICommand command);
+    String getUsage(ICommand command);
 }

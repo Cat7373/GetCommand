@@ -16,13 +16,13 @@ public class Item implements ICommand {
     private final Server server = Bukkit.getServer();
 
     @Override
-    public boolean handle(final CommandSender sender, final String[] args) throws Exception {
+    public boolean handle(CommandSender sender, String[] args) throws Exception {
         // 获取玩家名
-        final String playerName = sender.getName();
+        String playerName = sender.getName();
         // 获取玩家对象
-        final Player player = this.server.getPlayer(playerName);
+        Player player = this.server.getPlayer(playerName);
         // 获取玩家手上物品的 give 命令
-        final String command = GetCommandUtil.getPlayerHandItemGiveCommand(player);
+        String command = GetCommandUtil.getPlayerHandItemGiveCommand(player);
         // 根据接口定义 返回 null 视为手上没有物品
         if (command == null) {
             sender.sendMessage(String.format("%s必须手持一个物品才能执行这个命令", ChatColor.RED));

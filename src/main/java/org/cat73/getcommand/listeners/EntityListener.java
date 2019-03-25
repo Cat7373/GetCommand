@@ -16,30 +16,30 @@ import org.cat73.getcommand.utils.GetCommandUtil;
  * @author cat73
  */
 public class EntityListener implements Listener {
-    @EventHandler
     /**
      * 实体攻击实体的触发
      *
      * @param event
      * @throws Exception
      */
-    public void onEntityDamageByEntityEvent(final EntityDamageByEntityEvent event) throws Exception {
+    @EventHandler
+    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) throws Exception {
         // 获取攻击者
-        final Entity damager = event.getDamager();
+        Entity damager = event.getDamager();
         // 如果攻击者为玩家
         if (damager instanceof Player) {
             // 获取玩家对象
-            final Player player = (Player) damager;
+            Player player = (Player) damager;
             // 获取玩家名
-            final String playerName = player.getName();
+            String playerName = player.getName();
             // 如果玩家正在等待实体
             if (PlayersStatus.status.get(playerName) == Status.Wait_Entity) {
                 // 取消这次攻击
                 event.setCancelled(true);
 
                 // 准备数据
-                final Entity entity = event.getEntity();
-                final String command = GetCommandUtil.getEntitySummonCommand(entity);
+                Entity entity = event.getEntity();
+                String command = GetCommandUtil.getEntitySummonCommand(entity);
 
                 // 设置状态
                 PlayersStatus.commands.put(playerName, command);

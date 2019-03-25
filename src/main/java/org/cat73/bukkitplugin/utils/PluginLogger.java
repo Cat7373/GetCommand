@@ -17,7 +17,7 @@ public class PluginLogger {
      *
      * @param logger
      */
-    public PluginLogger(final Logger logger) {
+    public PluginLogger(Logger logger) {
         this.logger = logger;
     }
 
@@ -28,7 +28,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    private void log(final Level level, final String format, final Object... args) {
+    private void log(Level level, String format, Object... args) {
         this.logger.log(level, String.format(format, args));
     }
 
@@ -38,7 +38,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    public void info(final String format, final Object... args) {
+    public void info(String format, Object... args) {
         this.log(Level.INFO, format, args);
     }
 
@@ -48,7 +48,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    public void warn(final String format, final Object... args) {
+    public void warn(String format, Object... args) {
         this.warning(format, args);
     }
 
@@ -58,7 +58,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    public void warning(final String format, final Object... args) {
+    public void warning(String format, Object... args) {
         this.log(Level.WARNING, format, args);
     }
 
@@ -68,7 +68,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    public void error(final String format, final Object... args) {
+    public void error(String format, Object... args) {
         this.log(Level.SEVERE, format, args);
     }
 
@@ -78,7 +78,7 @@ public class PluginLogger {
      * @param format 要输出的信息格式
      * @param args 格式化时使用的数据列表
      */
-    public void debug(final String format, final Object... args) {
+    public void debug(String format, Object... args) {
         this.log(Level.INFO, "[DEBUG] " + format, args);
     }
 
@@ -87,15 +87,13 @@ public class PluginLogger {
      *
      * @param objs 要输出的数据列表
      */
-    public void debugs(final Object... objs) {
-        String message = "";
-        for (final Object obj : objs) {
-            message += obj.toString() + ", ";
+    public void debugs(Object... objs) {
+        StringBuilder sb = new StringBuilder();
+        for (Object obj : objs) {
+            sb.append(obj.toString()).append(", ");
         }
-        if (!message.isEmpty()) {
-            message = message.substring(0, message.length() - 2);
-        }
+        String msg = sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "";
 
-        this.log(Level.INFO, "[DEBUG] " + message);
+        this.log(Level.INFO, "[DEBUG] " + msg);
     }
 }

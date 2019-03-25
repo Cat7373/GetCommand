@@ -1,13 +1,13 @@
 package org.cat73.bukkitplugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cat73.bukkitplugin.utils.PluginLogger;
 import org.cat73.bukkitplugin.utils.i18n.I18n;
 import org.cat73.bukkitplugin.utils.i18n.Locale;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 插件主类
@@ -15,7 +15,9 @@ import org.cat73.bukkitplugin.utils.i18n.Locale;
  * @author Cat73
  */
 public class BukkitPlugin extends JavaPlugin {
-    /** 所有模块 */
+    /**
+     * 所有模块
+     **/
     protected final List<IModule> modules = new ArrayList<>();
     public PluginLogger logger;
     public I18n i18n;
@@ -32,7 +34,7 @@ public class BukkitPlugin extends JavaPlugin {
         // 保存默认配置
         try {
             this.saveDefaultConfig();
-        } catch (final IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // 项目没有配置文件
         }
         this.config = this.getConfig();
@@ -41,10 +43,10 @@ public class BukkitPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // 启动所有模块
-        for (final IModule module : this.modules) {
+        for (IModule module : this.modules) {
             try {
                 module.onEnable(this);
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 this.logger.error(String.format("启动模块 %s 时出现了一个未处理的错误", module.getName()));
                 e.printStackTrace();
             }
@@ -54,10 +56,10 @@ public class BukkitPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // 停用所有模块
-        for (final IModule module : this.modules) {
+        for (IModule module : this.modules) {
             try {
                 module.onDisable(this);
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 this.logger.error(String.format("关闭模块 %s 时出现了一个未处理的错误", module.getName()));
                 e.printStackTrace();
             }
@@ -71,12 +73,12 @@ public class BukkitPlugin extends JavaPlugin {
         // 重载配置
         this.reloadConfig();
         // 重载所有模块
-        for (final IModule module : this.modules) {
+        for (IModule module : this.modules) {
             if (module instanceof IReloadModule) {
-                final IReloadModule reloadModule = (IReloadModule) module;
+                IReloadModule reloadModule = (IReloadModule) module;
                 try {
                     reloadModule.onReload(this);
-                } catch (final Exception e) {
+                } catch (Exception e) {
                     this.logger.error(String.format("重载模块 %s 时出现了一个未处理的错误", reloadModule.getName()));
                     e.printStackTrace();
                 }

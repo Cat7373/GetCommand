@@ -11,11 +11,11 @@ import org.cat73.getcommand.status.Status;
 @CommandInfo(name = "Save", permission = "getcommand.save", playerOnly = true, usage = "[chat | file | console | command_block]", description = "保存上一个获取到的命令", aliases = "s", help = { "chat: 将指令在聊天信息输出(默认)", "file: 将指令保存到 log 文件里, 简写: f(未实现)", "console: 将指令输出到控制台, 简写: c", "command_block: 将指令输出到空白的命令方块中, 简写: cb" })
 public class Save implements ICommand {
     @Override
-    public boolean handle(CommandSender sender, String[] args) throws Exception {
+    public boolean handle(CommandSender sender, String[] args) {
         // 获取玩家名
-        final String playerName = sender.getName();
+        String playerName = sender.getName();
         // 获取上一个获取到的命令
-        final String command = PlayersStatus.commands.get(playerName);
+        String command = PlayersStatus.commands.get(playerName);
         // 判断命令是否为空
         if (command != null && !command.isEmpty()) {
             // 如果无参数则默认为 chat

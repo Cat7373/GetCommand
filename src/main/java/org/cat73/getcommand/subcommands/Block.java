@@ -10,9 +10,9 @@ import org.cat73.getcommand.status.Status;
 @CommandInfo(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
 public class Block implements ICommand {
     @Override
-    public boolean handle(final CommandSender sender, final String[] args) throws Exception {
+    public boolean handle(CommandSender sender, String[] args)  {
         // 获取玩家名
-        final String playerName = sender.getName();
+        String playerName = sender.getName();
         // 设置玩家状态为等待方块
         PlayersStatus.status.put(playerName, Status.Wait_Block);
 
