@@ -1,4 +1,4 @@
-package org.cat73.getcommand.utils.v1_9_R1;
+package org.cat73.getcommand.utils.v1_13_R2;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,7 +9,7 @@ import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.IGiveCommandUtil;
 import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
-public class V1_9_R1_GiveCommandUtil implements IGiveCommandUtil {
+public class V1_13_R2_GiveCommandUtil implements IGiveCommandUtil {
     @Override
     public String getPlayerHandItemGiveCommand(Player player) throws Exception {
         // 获取玩家手上的物品
@@ -19,13 +19,11 @@ public class V1_9_R1_GiveCommandUtil implements IGiveCommandUtil {
             String playerName = player.getName();
             // 获取物品名
             String itemName = this.getNMSName(item);
-            // 获取物品的附加数据值
-            int data = item.getDurability();
             // 获取物品的附加数据标签
             String dataTag = this.getDataTag(item);
 
             // 拼凑 give 命令并返回
-            return CommandUtil.getGiveCommand(playerName, itemName, 1, data, dataTag);
+            return CommandUtil.getGiveCommand13(playerName, itemName, 1, dataTag);
         }
         return null;
     }
@@ -38,9 +36,9 @@ public class V1_9_R1_GiveCommandUtil implements IGiveCommandUtil {
      * @throws Exception
      */
     private String getNMSName(ItemStack item) throws Exception {
-        // RegistryMaterials<MinecraftKey, Item> REGISTRY = Item.REGISTRY;
-        Class<?> ItemClass = CraftBukkitReflectUtil.minecraftServerClass("Item");
-        Object REGISTRY = ReflectUtil.getFieldValue(ItemClass, null, "REGISTRY");
+        // IRegistry<Item> REGISTRY = IRegistry.ITEM;
+        Class<?> IRegistryClass = CraftBukkitReflectUtil.minecraftServerClass("IRegistry");
+        Object REGISTRY = ReflectUtil.getFieldValue(IRegistryClass, null, "ITEM");
 
         // ItemStack NMSItemStack = item.handle;
         Object NMSItemStack = ReflectUtil.getFieldValue(item, "handle");
@@ -48,8 +46,8 @@ public class V1_9_R1_GiveCommandUtil implements IGiveCommandUtil {
         // Item NMSItem = NMSItemStack.getItem();
         Object NMSItem = ReflectUtil.invokeMethod(NMSItemStack, "getItem");
 
-        // MinecraftKey minecraftKey = REGISTRY.b(NMSItem);
-        Object minecraftKey = ReflectUtil.invokeMethodLimitArgTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSItem }, new Class<?>[] { Object.class });
+        // MinecraftKey minecraftKey = REGISTRY.getKey(NMSItem);
+        Object minecraftKey = ReflectUtil.invokeMethodLimitArgTypes(REGISTRY.getClass(), REGISTRY, "getKey", new Object[] { NMSItem }, new Class<?>[] { Object.class });
 
         return minecraftKey.toString();
     }

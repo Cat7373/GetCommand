@@ -1,4 +1,4 @@
-package org.cat73.getcommand.utils.v_1_11_R1;
+package org.cat73.getcommand.utils.v1_13_R2;
 
 import org.bukkit.entity.Entity;
 import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
@@ -7,7 +7,7 @@ import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.ISummonCommandUtil;
 import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
-public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
+public class V1_13_R2_SummonCommandUtil implements ISummonCommandUtil {
     @Override
     public String getEntitySummonCommand(Entity entity) throws Exception {
         // 获取实体名
@@ -26,16 +26,18 @@ public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
      * @throws Exception
      */
     private String getNMSName(Entity entity) throws Exception {
-        // RegistryMaterials<MinecraftKey, Class<? extends Entity>> registry = EntityTypes.b;
-        Class<?> EntityTypesClass = CraftBukkitReflectUtil.minecraftServerClass("EntityTypes");
-        Class<?> RegistryMaterialsClass = CraftBukkitReflectUtil.minecraftServerClass("RegistryMaterials");
-        Object registry = ReflectUtil.getFieldValue(EntityTypesClass, null, "b");
+        // IRegistry<EntityTypes> REGISTRY = IRegistry.ENTITY_TYPE;
+        Class<?> IRegistryClass = CraftBukkitReflectUtil.minecraftServerClass("IRegistry");
+        Object REGISTRY = ReflectUtil.getFieldValue(IRegistryClass, null, "ENTITY_TYPE");
 
         // Entity NMSEntity = entity.entity
         Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
 
-        // return registry.b(handle.getClass());
-        return ReflectUtil.invokeMethodLimitArgsTypes(RegistryMaterialsClass, registry, "b", new Object[] { NMSEntity.getClass() }, new Class<?>[] { Object.class }).toString();
+        // EntityTypes type = NMSEntity.P()
+        Object type = ReflectUtil.invokeMethod(NMSEntity, "P");
+
+        // return REGISTRY.getKey(handle.getClass());
+        return ReflectUtil.invokeMethodLimitArgTypes(IRegistryClass, REGISTRY, "getKey", new Object[] { type }, new Class<?>[] { Object.class }).toString();
     }
 
     /**
@@ -56,7 +58,7 @@ public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
         // NMSEntity.b(NBTTagCompound);
         ReflectUtil.invokeMethod(NMSEntity, "b", NBTTagCompound);
 
-        // 将 NBTTagCompound 序列化成 JSON 并返回
-        return NBTTagCompoundToJsonUtil.NBTTagCompoundToJson(NBTTagCompound, null);
+        // 将 NBTTagCompound 序列化成 YAML 并返回
+        return NBTTagCompoundToJsonUtil.NBTTagCompoundToYaml(NBTTagCompound, null);
     }
 }

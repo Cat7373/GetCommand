@@ -1,4 +1,4 @@
-package org.cat73.getcommand.utils.v1_9_R1;
+package org.cat73.getcommand.utils.v1_11_R1;
 
 import org.bukkit.entity.Entity;
 import org.cat73.bukkitplugin.utils.reflect.CraftBukkitReflectUtil;
@@ -7,9 +7,7 @@ import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.ISummonCommandUtil;
 import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
-import java.util.Map;
-
-public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
+public class V1_11_R1_SummonCommandUtil implements ISummonCommandUtil {
     @Override
     public String getEntitySummonCommand(Entity entity) throws Exception {
         // 获取实体名
@@ -28,15 +26,16 @@ public class V1_9_R1_SummonCommandUtil implements ISummonCommandUtil {
      * @throws Exception
      */
     private String getNMSName(Entity entity) throws Exception {
-        // HashMap<Class<?>, String> entityToStringMap = EntityTypes.d;
+        // RegistryMaterials<MinecraftKey, Class<? extends Entity>> registry = EntityTypes.b;
         Class<?> EntityTypesClass = CraftBukkitReflectUtil.minecraftServerClass("EntityTypes");
-        Object entityToStringMap = ReflectUtil.getFieldValue(EntityTypesClass, null, "d");
+        Class<?> RegistryMaterialsClass = CraftBukkitReflectUtil.minecraftServerClass("RegistryMaterials");
+        Object registry = ReflectUtil.getFieldValue(EntityTypesClass, null, "b");
 
         // Entity NMSEntity = entity.entity
         Object NMSEntity = ReflectUtil.getFieldValue(entity, "entity");
 
-        // return entityToStringMap.get(handle.getClass());
-        return ReflectUtil.invokeMethodLimitArgTypes(Map.class, entityToStringMap, "get", new Object[] { NMSEntity.getClass() }, new Class<?>[] { Object.class }).toString();
+        // return registry.b(handle.getClass());
+        return ReflectUtil.invokeMethodLimitArgTypes(RegistryMaterialsClass, registry, "b", new Object[] { NMSEntity.getClass() }, new Class<?>[] { Object.class }).toString();
     }
 
     /**

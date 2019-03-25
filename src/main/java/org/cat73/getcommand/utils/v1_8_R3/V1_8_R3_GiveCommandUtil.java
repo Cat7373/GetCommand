@@ -49,7 +49,7 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
         Object NMSItem = ReflectUtil.invokeMethod(NMSItemStack, "getItem");
 
         // MinecraftKey minecraftKey = REGISTRY.b(NMSItem);
-        Object minecraftKey = ReflectUtil.invokeMethodLimitArgsTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSItem }, new Class<?>[] { Object.class });
+        Object minecraftKey = ReflectUtil.invokeMethodLimitArgTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSItem }, new Class<?>[] { Object.class });
 
         return minecraftKey.toString();
     }
@@ -71,7 +71,7 @@ public class V1_8_R3_GiveCommandUtil implements IGiveCommandUtil {
         Object handle = ReflectUtil.getFieldValue(item, "handle");
         ReflectUtil.invokeMethod(handle, "save", NBTTagCompound);
 
-        // 将 NBTTagCompound 序列化成 JSON 并返回
-        return NBTTagCompoundToJsonUtil.NBTTagCompoundToJson(NBTTagCompound, "tag");
+        // 将 NBTTagCompound 序列化成 YAML 并返回
+        return NBTTagCompoundToJsonUtil.NBTTagCompoundToYaml(NBTTagCompound, "tag");
     }
 }

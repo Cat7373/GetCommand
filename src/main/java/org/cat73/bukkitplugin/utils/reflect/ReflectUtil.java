@@ -18,6 +18,7 @@ public class ReflectUtil {
      * @param fieldName 属性名
      * @return 找到的属性，如果没找到则返回 null
      */
+    // TODO 这个写法其实并不会搜索接口
     public static Field searchField(Class<?> clazz, String fieldName) throws Exception {
         Field field;
         while (true) {
@@ -150,7 +151,7 @@ public class ReflectUtil {
      * @return 方法的返回值
      * @throws Exception
      */
-    public static Object invokeMethodLimitArgsTypes(Class<?> clazz, Object object, String methodName, Object[] args, Class<?>[] argTypes) throws Exception {
+    public static Object invokeMethodLimitArgTypes(Class<?> clazz, Object object, String methodName, Object[] args, Class<?>[] argTypes) throws Exception {
         // 查找方法
         Method method = ReflectUtil.searchMethod(clazz, methodName, argTypes);
         // 保存原访问权限
@@ -186,7 +187,7 @@ public class ReflectUtil {
                 parameterTypes[i] = args[i].getClass();
             }
         }
-        return ReflectUtil.invokeMethodLimitArgsTypes(clazz, object, methodName, args, parameterTypes);
+        return ReflectUtil.invokeMethodLimitArgTypes(clazz, object, methodName, args, parameterTypes);
     }
 
     /**
@@ -212,7 +213,7 @@ public class ReflectUtil {
      * @return 实例化后的对象
      * @throws Exception
      */
-    public static Object invokeConstructorLimitArgsTypes(Class<?> clazz, Object[] args, Class<?>[] argTypes) throws Exception {
+    public static Object invokeConstructorLimitArgTypes(Class<?> clazz, Object[] args, Class<?>[] argTypes) throws Exception {
         // 查找构造函数
         Constructor<?> constructor = clazz.getDeclaredConstructor(argTypes);
         // 保存原访问权限
@@ -246,6 +247,6 @@ public class ReflectUtil {
                 parameterTypes[i] = args[i].getClass();
             }
         }
-        return ReflectUtil.invokeConstructorLimitArgsTypes(clazz, args, parameterTypes);
+        return ReflectUtil.invokeConstructorLimitArgTypes(clazz, args, parameterTypes);
     }
 }

@@ -2,7 +2,6 @@ package org.cat73.getcommand.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.entity.Player;
@@ -14,6 +13,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.GetCommandUtil;
+
+import java.util.Optional;
 
 /**
  * 玩家触发监听器类
@@ -62,7 +63,7 @@ public class PlayerListener implements Listener {
                 Block block = event.getClickedBlock();
 
                 // 判断是否为命令方块
-                if (block.getType() == Material.COMMAND) {
+                if (Optional.ofNullable(block).map(Block::getState).map(Object::getClass).filter(CommandBlock.class::isAssignableFrom).isPresent()) {
                     // 取消这次操作
                     event.setCancelled(true);
 

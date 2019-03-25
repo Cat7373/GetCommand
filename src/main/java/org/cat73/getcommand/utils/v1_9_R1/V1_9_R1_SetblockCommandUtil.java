@@ -37,7 +37,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         Object REGISTRY = ReflectUtil.getFieldValue(BlockClass, null, "REGISTRY");
 
         // MinecraftKey minecraftKey = REGISTRY.b(NMSBlock);
-        Object minecraftKey = ReflectUtil.invokeMethodLimitArgsTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSBlock }, new Class<?>[] { Object.class });
+        Object minecraftKey = ReflectUtil.invokeMethodLimitArgTypes(REGISTRY.getClass(), REGISTRY, "b", new Object[] { NMSBlock }, new Class<?>[] { Object.class });
 
         return minecraftKey.toString();
     }
@@ -59,7 +59,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         int z = block.getZ();
 
         // TileEntity tileEntity = world.getTileEntityAt(x, y, z);
-        Object tileEntity = ReflectUtil.invokeMethodLimitArgsTypes(world.getClass(), world, "getTileEntityAt", new Object[] { x, y, z }, new Class<?>[] { int.class, int.class, int.class });
+        Object tileEntity = ReflectUtil.invokeMethodLimitArgTypes(world.getClass(), world, "getTileEntityAt", new Object[] { x, y, z }, new Class<?>[] { int.class, int.class, int.class });
 
         // 如果没有附加数据标签则直接返回
         if (tileEntity == null) {
@@ -73,7 +73,7 @@ public class V1_9_R1_SetblockCommandUtil implements ISetblockCommandUtil {
         // tileEntity.save(NBTTagCompound);
         ReflectUtil.invokeMethod(tileEntity, "save", NBTTagCompound);
 
-        // 将 NBTTagCompound 序列化成 JSON 并返回
-        return NBTTagCompoundToJsonUtil.NBTTagCompoundToJson(NBTTagCompound, null);
+        // 将 NBTTagCompound 序列化成 YAML 并返回
+        return NBTTagCompoundToJsonUtil.NBTTagCompoundToYaml(NBTTagCompound, null);
     }
 }

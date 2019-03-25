@@ -27,5 +27,5 @@ tasks.withType<JavaCompile> {
 
 // 依赖
 dependencies {
-    implementation("org.spigotmc:spigot:1.11.2-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot:1.13.2-R0.1-SNAPSHOT")
 }
