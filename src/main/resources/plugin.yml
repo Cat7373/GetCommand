@@ -2,7 +2,7 @@ name: GetCommand
 main: org.cat73.getcommand.GetCommand
 author: Cat73
 website: https://github.com/Cat7373/GetCommand
-version: 1.0.0 beta
+version: 1.0.1
 commands:
   getcommand:
     usage: /<command> help
