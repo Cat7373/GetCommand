@@ -8,45 +8,22 @@ import org.cat73.getcommand.utils.CommandUtil;
 import org.cat73.getcommand.utils.ISetblockCommandUtil;
 import org.cat73.getcommand.utils.NBTTagCompoundToJsonUtil;
 
-// TODO 不支持获取 block_name[state] 的 state 部分
 public class V1_13_R2_SetblockCommandUtil implements ISetblockCommandUtil {
     @Override
     public String getBlockSetBlockAtCommand(Block block) throws Exception {
         // 获取方块名
-        String TileName = this.getNMSName(block);
+        String nameAndState = this.getNMSNameAndState(block);
         // 获取附加数据标签
         String dataTag = this.getDataTag(block);
         // 拼凑 setblock 命令并返回结果
-        return CommandUtil.getSetblockCommand13("~", "~1", "~", TileName, "replace", dataTag);
-    }
-
-    /**
-     * 获取 Block 的 MinecraftKey
-     *
-     * @param block 目标方块
-     * @return 目标方块的 MinecraftKey
-     * @throws Exception
-     */
-    private String getNMSName(Block block) throws Exception {
-        // IRegistry<Block> REGISTRY = IRegistry.BLOCK;
-        Class<?> IRegistryClass = CraftBukkitReflectUtil.minecraftServerClass("IRegistry");
-        Object REGISTRY = ReflectUtil.getFieldValue(IRegistryClass, null, "BLOCK");
-
-        // Block NMSBlock = block.getNMSBlock();
-        Object NMSBlock = ReflectUtil.invokeMethod(block, "getNMSBlock");
-
-        // MinecraftKey minecraftKey = REGISTRY.getKey(NMSBlock);
-        Object minecraftKey = ReflectUtil.invokeMethodLimitArgTypes(REGISTRY.getClass(), REGISTRY, "getKey", new Object[] { NMSBlock }, new Class<?>[] { Object.class });
-
-        return minecraftKey.toString();
+        return CommandUtil.getSetblockCommand13("~", "~1", "~", nameAndState, "replace", dataTag);
     }
 
     /**
      * 获取 Block 的附加数据标签
-     *
      * @param block 目标方块
      * @return 目标方块的附加数据标签
-     * @throws Exception
+     * @throws Exception 如果获取过程中出现了异常
      */
     private String getDataTag(Block block) throws Exception {
         // 方块所在的世界
@@ -60,10 +37,6 @@ public class V1_13_R2_SetblockCommandUtil implements ISetblockCommandUtil {
 
         // TileEntity tileEntity = worldServer.getTileEntity(pos);
         Object tileEntity = ReflectUtil.invokeMethod(worldServer, "getTileEntity", pos);
-
-        System.out.println(worldServer);
-        System.out.println(pos);
-        System.out.println(tileEntity);
 
         // 如果没有附加数据标签则直接返回
         if (tileEntity == null) {
@@ -79,5 +52,14 @@ public class V1_13_R2_SetblockCommandUtil implements ISetblockCommandUtil {
 
         // 将 NBTTagCompound 序列化成 YAML 并返回
         return NBTTagCompoundToJsonUtil.NBTTagCompoundToYaml(NBTTagCompound, null);
+    }
+
+    /**
+     * 获取 Block 的名字和 State
+     * @param block 目标方块
+     * @return 目标方块的名字和 State
+     */
+    private String getNMSNameAndState(Block block) {
+        return block.getBlockData().getAsString();
     }
 }

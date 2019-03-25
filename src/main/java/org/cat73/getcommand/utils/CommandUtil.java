@@ -69,12 +69,12 @@ public class CommandUtil {
      * @param x 位置
      * @param y 位置
      * @param z 位置
-     * @param tileName 方块名
+     * @param nameAndState 方块名和 State
      * @param oldBlockHandling 旧方块处理方式
      * @param dataTag 附加数据标签
      * @return 格式化的 setblock 指令
      */
-    public static String getSetblockCommand13(String x, String y, String z, String tileName, String oldBlockHandling, String dataTag) {
-        return String.format("/minecraft:setblock %s %s %s %s%s %s", x, y, z, tileName, dataTag, oldBlockHandling);
+    public static String getSetblockCommand13(String x, String y, String z, String nameAndState, String oldBlockHandling, String dataTag) {
+        return String.format("/minecraft:setblock %s %s %s %s%s %s", x, y, z, nameAndState, dataTag, oldBlockHandling);
     }
 }

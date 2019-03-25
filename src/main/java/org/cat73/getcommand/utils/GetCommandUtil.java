@@ -4,6 +4,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.cat73.getcommand.utils.v1_11_R1.V1_11_R1_SummonCommandUtil;
+import org.cat73.getcommand.utils.v1_13_R1.V1_13_R1_GiveCommandUtil;
+import org.cat73.getcommand.utils.v1_13_R1.V1_13_R1_SummonCommandUtil;
 import org.cat73.getcommand.utils.v1_13_R2.V1_13_R2_GiveCommandUtil;
 import org.cat73.getcommand.utils.v1_13_R2.V1_13_R2_SetblockCommandUtil;
 import org.cat73.getcommand.utils.v1_13_R2.V1_13_R2_SummonCommandUtil;
@@ -54,7 +56,11 @@ public class GetCommandUtil {
                 GetCommandUtil.summonTool = new V1_11_R1_SummonCommandUtil();
                 GetCommandUtil.setblockTool = new V1_9_R1_SetblockCommandUtil();
                 return true;
-            case "v1_13_R1": // TODO 测试
+            case "v1_13_R1":
+                GetCommandUtil.giveTool = new V1_13_R1_GiveCommandUtil();
+                GetCommandUtil.summonTool = new V1_13_R1_SummonCommandUtil();
+                GetCommandUtil.setblockTool = new V1_13_R2_SetblockCommandUtil();
+                return true;
             case "v1_13_R2":
                 GetCommandUtil.giveTool = new V1_13_R2_GiveCommandUtil();
                 GetCommandUtil.summonTool = new V1_13_R2_SummonCommandUtil();
