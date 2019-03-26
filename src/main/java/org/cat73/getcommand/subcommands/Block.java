@@ -2,12 +2,12 @@ package org.cat73.getcommand.subcommands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@CommandInfo(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
+@Command(name = "Block", permission = "getcommand.block", playerOnly = true, description = "点一下方块来获取 setblock 命令", aliases = "b")
 public class Block implements ICommand {
     @Override
     public boolean handle(CommandSender sender, String[] args)  {

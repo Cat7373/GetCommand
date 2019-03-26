@@ -1,4 +1,4 @@
-package org.cat73.bukkitplugin.command.command;
+package org.cat73.bukkitplugin.command.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,25 +12,33 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
-public @interface CommandInfo {
-    /** 命令的名称 */
+public @interface Command {
+    /**
+     * 命令的名称
+     **/
     String name();
-
-    /** 执行这个命令所需的权限, 为空则无需任何权限即可执行 */
+    /**
+     * 执行这个命令所需的权限, 为空则无需任何权限即可执行
+     **/
     String permission() default "";
-
-    /** 命令的使用方法 */
+    /**
+     * 命令的使用方法
+     **/
     String usage() default "";
-
-    /** 命令的说明 */
+    /**
+     * 命令的说明
+     **/
     String description() default "";
-
-    /** 命令的帮助信息 */
+    /**
+     * 命令的帮助信息
+     **/
     String[] help() default "";
-
-    /** 命令的简写列表 */
+    /**
+     * 命令的简写列表
+     **/
     String[] aliases() default "";
-
-    /** 仅玩家可以执行的命令 */
+    /**
+     * 仅玩家可以执行的命令
+     **/
     boolean playerOnly() default false;
 }

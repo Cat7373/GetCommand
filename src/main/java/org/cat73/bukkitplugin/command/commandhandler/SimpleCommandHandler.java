@@ -1,6 +1,6 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 
 import java.util.Collection;
@@ -44,7 +44,7 @@ public abstract class SimpleCommandHandler implements ICommandHandler {
     @Override
     public void registerCommand(ICommand command) {
         // 获取命令的信息
-        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        Command info = ICommandHandler.getCommandInfo(command);
         String name = info.name();
 
         // 加入命令列表

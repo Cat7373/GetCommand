@@ -1,12 +1,11 @@
 package org.cat73.bukkitplugin.command.commandhandler;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.cat73.bukkitplugin.BukkitPlugin;
 import org.cat73.bukkitplugin.IModule;
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.bukkitplugin.command.commands.Help;
 import org.cat73.bukkitplugin.utils.PluginLogger;
@@ -45,7 +44,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     @Override
     public void registerCommand(ICommand command) {
         // 获取子命令的信息
-        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        Command info = ICommandHandler.getCommandInfo(command);
         String name = info.name();
 
         // 检查是否存在命令覆盖的情况
@@ -59,7 +58,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
         for (String aliase : info.aliases()) {
             // 检查是否存在简写覆盖的情况
             if (this.getCommand(aliase) != null) {
-                CommandInfo info2 = ICommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
+                Command info2 = ICommandHandler.getCommandInfo(this.aliaseCache.get(aliase));
                 this.logger.warn("%s 的命令管理器的子命令 %s 的子命令或简写 %s 被 %s 覆盖，建议检查代码", this.baseCommand, info2.name(), this.aliaseCache, name);
             }
             // 加入简写列表
@@ -78,7 +77,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
 
     @Override
     public String getUsage(ICommand command) {
-        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        Command info = ICommandHandler.getCommandInfo(command);
         return String.format("/%s %s %s", this.baseCommand, info.name(), info.usage());
     }
 
@@ -96,7 +95,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String commandLabel, String[] args) {
         if (command.getName().equals(this.baseCommand)) {
             // 如果没有参数则执行帮助
             if (args == null || args.length < 1) {
@@ -112,7 +111,7 @@ public class SubCommandHandler extends SimpleCommandHandler implements IModule {
             }
 
             // 判断有无权限执行这个子命令
-            CommandInfo info = ICommandHandler.getCommandInfo(commandExecer);
+            Command info = ICommandHandler.getCommandInfo(commandExecer);
             if (!ICommandHandler.hasPermission(commandExecer, sender)) {
                 sender.sendMessage(String.format("%s%s你需要 %s 权限才能执行 %s 命令.", ChatColor.RED, ChatColor.BOLD, info.permission(), info.name()));
                 return true;

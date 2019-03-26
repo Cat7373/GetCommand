@@ -2,12 +2,12 @@ package org.cat73.getcommand.subcommands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 
-@CommandInfo(name = "Cancel", permission = "getcommand.cancel", playerOnly = true, description = "取消当前操作", aliases = "c")
+@Command(name = "Cancel", permission = "getcommand.cancel", playerOnly = true, description = "取消当前操作", aliases = "c")
 public class Cancel implements ICommand {
     @Override
     public boolean handle(CommandSender sender, String[] args) {

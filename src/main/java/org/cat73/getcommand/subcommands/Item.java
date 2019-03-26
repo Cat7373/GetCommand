@@ -5,13 +5,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.getcommand.status.PlayersStatus;
 import org.cat73.getcommand.status.Status;
 import org.cat73.getcommand.utils.GetCommandUtil;
 
-@CommandInfo(name = "Item", permission = "getcommand.item", playerOnly = true, description = "获取手上物品的 Give 命令", aliases = "i")
+@Command(name = "Item", permission = "getcommand.item", playerOnly = true, description = "获取手上物品的 Give 命令", aliases = "i")
 public class Item implements ICommand {
     private final Server server = Bukkit.getServer();
 

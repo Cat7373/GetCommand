@@ -2,7 +2,7 @@ package org.cat73.bukkitplugin.command.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.cat73.bukkitplugin.command.command.CommandInfo;
+import org.cat73.bukkitplugin.command.annotation.Command;
 import org.cat73.bukkitplugin.command.command.ICommand;
 import org.cat73.bukkitplugin.command.commandhandler.ICommandHandler;
 
@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @author cat73
  */
-@CommandInfo(name = "Help", usage = "[page | commandName]", description = "显示帮助信息", aliases = "h")
+@Command(name = "Help", usage = "[page | commandName]", description = "显示帮助信息", aliases = "h")
 public class Help implements ICommand {
     // TODO 私有化
     /** 每页输出多少条帮助 */
@@ -66,7 +66,7 @@ public class Help implements ICommand {
         // 输出目标页的内容
         for (int i = 0; i < this.pageCommandCount && it.hasNext(); i++) {
             ICommand commandExecer = it.next();
-            CommandInfo info = ICommandHandler.getCommandInfo(commandExecer);
+            Command info = ICommandHandler.getCommandInfo(commandExecer);
             sender.sendMessage(ChatColor.GREEN + String.format("%s -- %s", info.name(), info.description()));
         }
     }
@@ -78,7 +78,7 @@ public class Help implements ICommand {
      * @param command 命令的执行器
      */
     public void sendCommandHelp(CommandSender sender, ICommand command) {
-        CommandInfo info = ICommandHandler.getCommandInfo(command);
+        Command info = ICommandHandler.getCommandInfo(command);
         sender.sendMessage(String.format("%s%s------- help %s ----------------", ChatColor.AQUA, ChatColor.BOLD, info.name()));
         // 命令的用法 / 参数
         sender.sendMessage(ChatColor.GREEN + this.commandHandler.getUsage(command));
